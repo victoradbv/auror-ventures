@@ -1,0 +1,201 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const t = {
+  heroTitle: isES
+    ? "Impulsando el crecimiento con finanzas y tecnología"
+    : "Empowering Growth Through Finance and Technology",
+
+  introText: isES
+    ? "Nuestra empresa ayuda a negocios e inversores a alcanzar nuevos niveles de eficiencia, rentabilidad y crecimiento. Nos especializamos en implementar soluciones digitales a medida que permiten tomar decisiones más informadas basadas en datos. A través de formación y soporte continuo, nuestros clientes adquieren las herramientas necesarias para integrar sistemas avanzados de forma sencilla, liberando tiempo valioso para centrarse en sus actividades principales generadoras de ingresos."
+    : "Our company empowers businesses and investors to unlock new levels of efficiency, profitability, and growth. We specialize in implementing tailored digital solutions that help organizations make more informed, data-driven decisions. Through education and ongoing support, our clients gain the expertise needed to seamlessly integrate advanced systems, freeing up valuable time to focus on their core income-generating activities.",
+
+  servicesTitle: isES ? "Nuestros Servicios" : "Our Services",
+
+  connectTitle: isES ? "Conecta con nosotros" : "Connect with Us",
+  connectSubtitle: isES ? "Empecemos una conversación" : "Let's start a conversation",
+  btnTeam: isES ? "Conoce al equipo" : "Meet Our Team",
+  btnContact: isES ? "Contáctanos" : "Contact Us",
+};
+---
+
+<Layout title="Home">
+
+  <!-- HERO -->
+  <section class="relative h-[340px] md:h-[440px] flex items-center">
+
+    <!-- Background -->
+    <div 
+      class="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
+      style="background-image: url('/images/Home-background.png');"
+    ></div>
+
+    <!-- Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 w-full pb-40 md:pb-10 pl-4">
+      <h1 class="text-white text-[30px] md:text-[44px] leading-[1.3] tracking-[0.5px] max-w-xl font-heading">
+        {t.heroTitle}
+      </h1>
+    </div>
+
+  </section>
+
+
+<!-- INTRO -->
+<section class="bg-white py-24">
+  <div class="max-w-1xl md:max-w-4xl mx-auto px-6 text-center relative">
+
+    <!-- INNER WRAPPER (controls width for both text + lines) -->
+    <div class="max-w-[1100px] mx-auto">
+
+      <!-- MOBILE: TOP DOUBLE LINE -->
+      <div class="flex flex-col md:hidden mb-6 gap-[1.2px]">
+        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+      </div>
+
+      <!-- TEXT -->
+      <p class="font-body text-[16px] md:text-[18px] font-medium leading-[1.85] tracking-[0.6px] text-gray-800">
+        {t.introText}
+      </p>
+
+      <!-- MOBILE: BOTTOM DOUBLE LINE -->
+      <div class="flex flex-col md:hidden mt-6 gap-[1.2px]">
+        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+      </div>
+
+    </div>
+
+    <!-- DESKTOP: LEFT DOUBLE LINE -->
+    <div class="hidden md:flex absolute left-0 -top-6 -bottom-6 gap-[1px]">
+      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+    </div>
+
+    <!-- DESKTOP: RIGHT DOUBLE LINE -->
+    <div class="hidden md:flex absolute right-0 -top-6 -bottom-6 gap-[1px]">
+      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- SERVICES -->
+  <section class="bg-[var(--color-primary)] py-24 text-white">
+
+    <div class="max-w-6xl mx-auto px-6">
+
+      <h2 class="text-3xl md:text-4xl mb-16 text-center font-heading">
+        {t.servicesTitle}
+      </h2>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+        {[
+          {
+            title: "Data Science",
+            text: "Forecasting, regression models, and profitability analysis to support business decisions.",
+            img: "/images/service1.jpg"
+          },
+          {
+            title: "Digitalization",
+            text: "Automation of processes, databases, and digital tools to save time and reduce manual work.",
+            img: "/images/service2.jpg"
+          },
+          {
+            title: "Investment Solutions",
+            text: "Portfolio strategies and project evaluation using financial models like NPV and IRR.",
+            img: "/images/service3.jpg"
+          },
+          {
+            title: "Software Solutions",
+            text: "Custom tools and systems designed to improve daily operations and efficiency.",
+            img: "/images/service4.jpg"
+          }
+        ].map(service => (
+
+          <div class="group">
+
+            <a href="#" class="block relative overflow-hidden">
+
+              <div
+                class="h-64 bg-cover bg-center"
+                style={`background-image: url(${service.img})`}
+              ></div>
+
+              <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition"></div>
+
+              <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
+
+                <h3 class="text-lg font-heading">
+                  {service.title}
+                </h3>
+
+                <span class="text-xl transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+
+              </div>
+
+            </a>
+
+            <p class="mt-4 text-sm text-white/90">
+              {service.text}
+            </p>
+
+          </div>
+
+        ))}
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CONNECT -->
+  <section class="bg-white py-24">
+
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+      <div>
+        <img src="/images/connect.jpg" class="w-full h-auto object-cover" />
+      </div>
+
+      <div>
+
+        <h2 class="text-3xl md:text-4xl mb-4 font-heading">
+          {t.connectTitle}
+        </h2>
+
+        <p class="text-lg text-gray-600 mb-8">
+          {t.connectSubtitle}
+        </p>
+
+        <div class="flex gap-4">
+
+          <a href="/team"
+             class="px-6 py-3 border border-[var(--color-primary)] text-[var(--color-primary)] text-sm hover:bg-[var(--color-primary)] hover:text-white transition">
+            {t.btnTeam}
+          </a>
+
+          <a href="/contact"
+             class="px-6 py-3 bg-[var(--color-primary)] text-white text-sm hover:opacity-90 transition">
+            {t.btnContact}
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</Layout>

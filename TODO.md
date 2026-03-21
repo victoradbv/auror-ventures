@@ -6,5 +6,5 @@
 # Sunday
 
 -Services, projects
--Final responsive styling
+-Responsive styling
 -Upload cloudflare
