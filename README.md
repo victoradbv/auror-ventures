@@ -1,43 +1,32 @@
-# Astro Starter Kit: Minimal
+# Auror Ventures Website
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Official website for Auror Ventures, built with Astro and Tailwind CSS.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Tech Stack
 
-## 🚀 Project Structure
+* Astro
+* Tailwind CSS
 
-Inside of your Astro project, you'll see the following folders and files:
+## Development
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+npm install
+npm run dev
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Build
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+npm run build
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Structure
 
-## 🧞 Commands
+* `src/components` → UI components (Header, Footer, etc.)
+* `src/layouts` → Page layouts
+* `src/pages` → Routes
+* `public` → Static assets (images, fonts)
 
-All commands are run from the root of the project, from a terminal:
+## Notes
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+* Fonts are locally hosted
+* Styling follows a Tailwind-first approach
+* Design system uses CSS variables for colors
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---

@@ -1,4 +1,30 @@
 ---
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+// Base path
+const base = isES ? '/es' : '/en';
+
+// Translations (ONLY TEXT)
+const t = isES
+  ? {
+      services: "Servicios",
+      company: "Empresa",
+      finance: "Soluciones Financieras",
+      software: "Software & Cloud",
+      about: "Sobre Nosotros",
+      contact: "Contacto",
+      legal: "Legal",
+    }
+  : {
+      services: "Services",
+      company: "Company",
+      finance: "Finance Solutions",
+      software: "Software & Cloud",
+      about: "About Us",
+      contact: "Contact",
+      legal: "Legal",
+    };
 ---
 
 <footer 
@@ -21,23 +47,23 @@
       </div>
 
       <!-- Services + Company wrapper -->
-      <div class="grid grid-cols-2 gap-6 md:contents">
+      <div class="grid grid-cols-2 gap-10 md:contents">
 
         <!-- Services -->
         <div>
           <h3 class="mb-3 font-heading text-base md:text-lg text-white">
-            Services
+            {t.services}
           </h3>
 
           <ul class="space-y-2 font-ui text-sm md:text-base text-muted-light leading-tight">
             <li>
-              <a href="/services-finance-solutions" class="hover:text-white">
-                Finance Solutions
+              <a href={`${base}/services-finance-solutions`} class="hover:text-white whitespace-nowrap">
+                {t.finance}
               </a>
             </li>
             <li>
-              <a href="/services-software-cloud" class="hover:text-white">
-                Software <span class="font-sans">&amp;</span> Cloud
+              <a href={`${base}/services-software-cloud`} class="hover:text-white whitespace-nowrap">
+                {t.software}
               </a>
             </li>
             <li class="hidden md:block opacity-0 select-none">Placeholder</li>
@@ -47,23 +73,23 @@
         <!-- Company -->
         <div>
           <h3 class="mb-3 font-heading text-base md:text-lg text-white">
-            Company
+            {t.company}
           </h3>
 
           <ul class="space-y-2 font-ui text-sm md:text-base text-muted-light leading-tight">
             <li>
-              <a href="/about-us" class="hover:text-white">
-                About Us
+              <a href={`${base}/about-us`} class="hover:text-white">
+                {t.about}
               </a>
             </li>
             <li>
-              <a href="/contact" class="hover:text-white">
-                Contact
+              <a href={`${base}/contact`} class="hover:text-white">
+                {t.contact}
               </a>
             </li>
             <li>
               <a href="#" class="hover:text-white">
-                Legal
+                {t.legal}
               </a>
             </li>
           </ul>

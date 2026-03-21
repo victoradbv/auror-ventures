@@ -1,9 +1,7 @@
 # Saturday
 
--Header, Footer
 -Home, About Us, Contact
--style.css, image names, favicon.svg
--Language?
+-favicon.svg
 
 # Sunday
 

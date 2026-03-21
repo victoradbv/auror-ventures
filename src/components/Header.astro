@@ -1,11 +1,55 @@
 ---
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+// Base path
+const base = isES ? '/es' : '/en';
+
+// Clean path (for language switch only)
+const cleanPath = path.replace(/^\/(en|es)/, '') || '/';
+const enPath = `/en${cleanPath === '/' ? '' : cleanPath}`;
+const esPath = `/es${cleanPath === '/' ? '' : cleanPath}`;
+const switchPath = isES ? enPath : esPath;
+
+// Flags
+const currentFlag = isES ? '/images/flags/es.png' : '/images/flags/en.png';
+const otherFlag = isES ? '/images/flags/en.png' : '/images/flags/es.png';
+
+// Translations (ONLY TEXT)
+const t = isES
+  ? {
+      about: "Sobre Nosotros",
+      services: "Servicios",
+      projects: "Proyectos",
+      contact: "Contacto",
+      finance: "Soluciones Financieras",
+      software: "Software & Cloud",
+      asset: "Gestión de Activos y Portafolios",
+      data: "Big Data y Automatización",
+      dev: "Desarrollo de Software y Aplicaciones",
+      cloud: "Infraestructura Cloud",
+      switchLang: "English",
+    }
+  : {
+      about: "About Us",
+      services: "Services",
+      projects: "Projects",
+      contact: "Contact",
+      finance: "Finance Solutions",
+      software: "Software & Cloud",
+      asset: "Asset & Portfolio Management",
+      data: "Big Data & Automations",
+      dev: "Software & Application Development",
+      cloud: "Cloud Infrastructure",
+      switchLang: "Español",
+    };
 ---
 
 <header class="w-full bg-[var(--color-bg)] text-[var(--color-text)] border-b border-[var(--color-divider)] relative z-50">
   <div class="container-custom flex items-center justify-between py-4">
 
     <!-- Logo -->
-    <a href="/" class="flex items-center cursor-pointer">
+    <a href={base} class="flex items-center cursor-pointer">
       <img 
         src="/images/Logo-with-name.png"
         alt="Auror Ventures"
@@ -16,15 +60,15 @@
     <!-- Desktop Navigation -->
     <nav class="hidden md:flex items-center gap-8 text-sm md:text-lg font-medium font-heading">
 
-      <a href="/about-us" class="hover:text-[var(--color-hover)] cursor-pointer">
-        About Us
+      <a href={`${base}/about-us`} class="hover:text-[var(--color-hover)] cursor-pointer">
+        {t.about}
       </a>
 
       <!-- Services -->
       <div class="relative group cursor-pointer">
 
         <button class="flex items-center gap-2 hover:text-[var(--color-hover)] cursor-pointer">
-          Services
+          {t.services}
           <svg class="w-4 h-4 mt-[1px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 9l6 6 6-6" />
           </svg>
@@ -35,12 +79,12 @@
 
           <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm md:text-base font-ui inline-block">
 
-            <!-- Finance Solutions -->
+            <!-- Finance -->
             <div class="relative group/item border-b border-white/30">
 
-              <a href="/services-finance-solutions" 
+              <a href={`${base}/services-finance-solutions`} 
                  class="flex w-full items-center justify-between px-5 py-3 hover:bg-[var(--color-primary-dark)] transition whitespace-nowrap">
-                <span>Finance Solutions</span>
+                <span>{t.finance}</span>
                 <svg class="w-4 h-4 ml-2 text-gray-300 rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M6 9l6 6 6-6" />
                 </svg>
@@ -51,23 +95,23 @@
                 <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm md:text-base font-ui inline-block">
 
                   <a href="#" class="block px-6 py-3 border-b border-white/30 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
-                    Asset <span class="font-sans">&amp;</span> Portfolio Management
+                    {t.asset}
                   </a>
 
                   <a href="#" class="block px-6 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
-                    Big Data <span class="font-sans">&amp;</span> Automations
+                    {t.data}
                   </a>
 
                 </div>
               </div>
             </div>
 
-            <!-- Software & Cloud -->
+            <!-- Software -->
             <div class="relative group/item">
 
-              <a href="/services-software-cloud" 
+              <a href={`${base}/services-software-cloud`} 
                  class="flex w-full items-center justify-between px-5 py-3 hover:bg-[var(--color-primary-dark)] transition whitespace-nowrap">
-                <span>Software <span class="font-sans">&amp;</span> Cloud</span>
+                <span>{t.software}</span>
                 <svg class="w-4 h-4 ml-2 text-gray-300 rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M6 9l6 6 6-6" />
                 </svg>
@@ -78,11 +122,11 @@
                 <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm md:text-base font-ui inline-block">
 
                   <a href="#" class="block px-6 py-3 border-b border-white/30 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
-                    Software <span class="font-sans">&amp;</span> Application Development
+                    {t.dev}
                   </a>
 
                   <a href="#" class="block px-6 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
-                    Cloud Infrastructure
+                    {t.cloud}
                   </a>
 
                 </div>
@@ -93,17 +137,40 @@
         </div>
       </div>
 
-      <a href="/projects" class="hover:text-[var(--color-hover)] cursor-pointer">
-        Projects
+      <a href={`${base}/projects`} class="hover:text-[var(--color-hover)] cursor-pointer">
+        {t.projects}
       </a>
 
-      <a href="/contact" class="hover:text-[var(--color-hover)] cursor-pointer">
-        Contact
+      <a href={`${base}/contact`} class="hover:text-[var(--color-hover)] cursor-pointer">
+        {t.contact}
       </a>
+
+      <!-- Language Switcher -->
+      <div class="relative group cursor-pointer">
+
+        <button class="flex items-center gap-2 hover:text-[var(--color-hover)] cursor-pointer">
+          <img src={currentFlag} class="w-4 h-[11px]" />
+          <svg class="w-4 h-4 mt-[1px]" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" />
+          </svg>
+        </button>
+
+        <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-[999]">
+          <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm font-ui inline-block min-w-[120px]">
+
+            <a href={switchPath} class="flex items-center gap-2 px-4 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
+              <img src={otherFlag} class="w-4 h-[11px]" />
+              <span class="text-white">{t.switchLang}</span>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
 
     </nav>
 
-    <!-- Mobile Menu Button -->
+    <!-- Mobile -->
     <button id="menu-btn" class="md:hidden text-2xl cursor-pointer">
       ☰
     </button>
@@ -111,51 +178,71 @@
   </div>
 
   <!-- Mobile Menu -->
-  <div id="mobile-menu" class="md:hidden hidden flex flex-col px-6 pb-4 text-base font-heading font-medium">
+  <div id="mobile-menu" class="md:hidden hidden flex flex-col px-6 pb-6 text-base font-heading font-medium">
 
-    <a href="/about-us" class="py-3 border-b border-[var(--color-divider)]">About Us</a>
+    <a href={`${base}/about-us`} class="py-3 border-b border-[var(--color-divider)]">{t.about}</a>
 
     <!-- Services -->
     <div class="py-3 border-b border-[var(--color-divider)]">
 
-      <button id="services-btn" class="flex items-center justify-between w-full cursor-pointer">
-        <span>Services</span>
-        <span class="text-base">▾</span>
-      </button>
+      <button id="services-btn" class="flex items-center gap-2">
+        <span>{t.services}</span>
+        <span>▾</span>
+        </button>
 
       <div id="services-submenu" class="hidden mt-3 ml-2 flex flex-col gap-3 text-sm font-ui">
 
         <!-- Finance -->
         <div>
           <button class="w-full text-left font-medium" onclick="toggleSub('finance')">
-            Finance Solutions
+            {t.finance}
           </button>
           <div id="finance" class="hidden ml-3 mt-2 flex flex-col gap-2 text-xs">
-            <a href="#">Asset <span class="font-sans">&amp;</span> Portfolio Management</a>
-            <a href="#">Big Data <span class="font-sans">&amp;</span> Automations</a>
+            <a href="#">{t.asset}</a>
+            <a href="#">{t.data}</a>
           </div>
         </div>
 
         <!-- Software -->
         <div>
           <button class="w-full text-left font-medium" onclick="toggleSub('software')">
-            Software <span class="font-sans">&amp;</span> Cloud
+            {t.software}
           </button>
           <div id="software" class="hidden ml-3 mt-2 flex flex-col gap-2 text-xs">
-            <a href="#">Software <span class="font-sans">&amp;</span> Application Development</a>
-            <a href="#">Cloud Infrastructure</a>
+            <a href="#">{t.dev}</a>
+            <a href="#">{t.cloud}</a>
           </div>
         </div>
 
       </div>
     </div>
 
-    <a href="/projects" class="py-3 border-b border-[var(--color-divider)]">Projects</a>
-    <a href="/contact" class="py-3">Contact</a>
+    <a href={`${base}/projects`} class="py-3 border-b border-[var(--color-divider)]">{t.projects}</a>
+    <a href={`${base}/contact`} class="py-3 border-b border-[var(--color-divider)]">{t.contact}</a>
+
+    <!-- Language -->
+    <div class="py-4 flex items-center gap-3 font-ui">
+
+      <a href={enPath}
+         class={`px-3 py-2 flex items-center ${
+           !isES ? 'bg-[var(--color-primary)] text-white rounded' : ''
+         }`}>
+        <img src="/images/flags/en.png" class="w-4 h-[11px]" />
+      </a>
+
+      <span class="text-gray-400">|</span>
+
+      <a href={esPath}
+         class={`px-3 py-2 flex items-center ${
+           isES ? 'bg-[var(--color-primary)] text-white rounded' : ''
+         }`}>
+        <img src="/images/flags/es.png" class="w-4 h-[11px]" />
+      </a>
+
+    </div>
 
   </div>
 
-  <!-- Script -->
   <script>
     const btn = document.getElementById("menu-btn");
     const menu = document.getElementById("mobile-menu");
