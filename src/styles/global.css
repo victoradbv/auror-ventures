@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================
+   FONTS
+========================= */
+@font-face {
+  font-family: 'Uni Neue';
+  src: url('/fonts/UniNeue-Trial-Bold.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Uni Light';
+  src: url('/fonts/UniNeue-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Uni Heavy';
+  src: url('/fonts/UniNeue-HeavyItalic.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* =========================
+   ROBOTO
+========================= */
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+/* =========================
+   ROOT VARIABLES
+========================= */
+:root {
+  --color-primary: #10566f;
+  --color-primary-dark: #0d455a;
+
+  --color-text: #000000;
+  --color-text-light: #6b7280;
+  --color-hover: #6b7280;
+
+  --color-border: #d1d5db;
+  --color-divider: #d1d5db;
+  --color-bg: #ffffff;
+
+  --container-width: 1000px;
+}
+
+/* =========================
+   BASE STYLES
+========================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+/* =========================
+   FONT ROLES
+========================= */
+
+/* Titles only */
+.font-heading {
+  font-family: 'Uni Neue', Arial, sans-serif;
+}
+
+/* UI / body (optional helper, mostly redundant) */
+.font-ui {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 500;
+}
+
+/* =========================
+   COLORS
+========================= */
+.text-muted {
+  color: var(--color-text-light);
+}
+
+.text-muted-light {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* =========================
+   LINKS
+========================= */
+a {
+  @apply transition duration-200;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+.container-custom {
+  max-width: var(--container-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
