@@ -47,6 +47,8 @@
   --color-primary: #10566f;
   --color-primary-dark: #0d455a;
 
+  --color-primary-accent: #207E82;
+
   --color-text: #000000;
   --color-text-light: #6b7280;
   --color-hover: #6b7280;
@@ -82,6 +84,11 @@ body {
 
 /* UI / body (optional helper, mostly redundant) */
 .font-ui {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 500;
+}
+
+.font-body {
   font-family: 'Roboto', Arial, sans-serif;
   font-weight: 500;
 }

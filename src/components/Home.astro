@@ -15,8 +15,8 @@ const t = {
 
   servicesTitle: isES ? "Nuestros Servicios" : "Our Services",
 
-  connectTitle: isES ? "Conecta con nosotros" : "Connect with Us",
-  connectSubtitle: isES ? "Empecemos una conversación" : "Let's start a conversation",
+  connectTitle: isES ? "Conecta con nosotros" : "Connect With Us",
+  connectSubtitle: isES ? "Empecemos una conversación" : "Let’s start a conversation about building a stronger financial future.",
   btnTeam: isES ? "Conoce al equipo" : "Meet Our Team",
   btnContact: isES ? "Contáctanos" : "Contact Us",
 };
@@ -86,36 +86,36 @@ const t = {
 
 
   <!-- SERVICES -->
-  <section class="bg-[var(--color-primary)] py-24 text-white">
+  <section class="bg-[var(--color-primary)] py-6 text-white">
 
     <div class="max-w-6xl mx-auto px-6">
 
-      <h2 class="text-3xl md:text-4xl mb-16 text-center font-heading">
+      <h2 class="text-[30px] md:text-[44px] mb-6 text-center font-heading">
         {t.servicesTitle}
       </h2>
 
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 font-body">
 
         {[
           {
-            title: "Data Science",
+            title: "Asset & Portfolio Management",
             text: "Forecasting, regression models, and profitability analysis to support business decisions.",
-            img: "/images/service1.jpg"
+            img: "/images/service-1.jpg"
           },
           {
-            title: "Digitalization",
+            title: "Big Data & Automations",
             text: "Automation of processes, databases, and digital tools to save time and reduce manual work.",
-            img: "/images/service2.jpg"
+            img: "/images/service-3.jpg"
           },
           {
-            title: "Investment Solutions",
+            title: "Software & Application Development",
             text: "Portfolio strategies and project evaluation using financial models like NPV and IRR.",
-            img: "/images/service3.jpg"
+            img: "/images/service-2.jpg"
           },
           {
-            title: "Software Solutions",
+            title: "Cloud Infrastructure",
             text: "Custom tools and systems designed to improve daily operations and efficiency.",
-            img: "/images/service4.jpg"
+            img: "/images/service-3.jpg"
           }
         ].map(service => (
 
@@ -124,7 +124,7 @@ const t = {
             <a href="#" class="block relative overflow-hidden">
 
               <div
-                class="h-64 bg-cover bg-center"
+                class="h-54 md:h-64 bg-cover bg-center"
                 style={`background-image: url(${service.img})`}
               ></div>
 
@@ -132,7 +132,8 @@ const t = {
 
               <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
 
-                <h3 class="text-lg font-heading">
+                <h3 class="text-lg font-body max-w-[88%] leading-tight
+                            transition-transform group-hover:translate-x-1">
                   {service.title}
                 </h3>
 
@@ -160,42 +161,72 @@ const t = {
 
 
   <!-- CONNECT -->
-  <section class="bg-white py-24">
+  <section class="bg-white py-10">
 
-    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+  <div class="max-w-3xl mx-auto px-6 grid md:grid-cols-[0.8fr_1.2fr] gap-4 md:gap-8 items-center">
 
-      <div>
-        <img src="/images/connect.jpg" class="w-full h-auto object-cover" />
-      </div>
+    <!-- IMAGE -->
+    <div class="flex justify-center">
+      <img src="/images/contact-us.png" class="w-[180px] h-[180px] med:w-[250px] med:h-[250px] object-cover" />
+    </div>
 
-      <div>
+    <!-- CONTENT -->
+    <div class="flex flex-col justify-center h-full text-center md:text-left">
 
-        <h2 class="text-3xl md:text-4xl mb-4 font-heading">
-          {t.connectTitle}
-        </h2>
+      <h2 class="text-[30px] md:text-[44px] mb-4 font-heading">
+        {t.connectTitle}
+      </h2>
 
-        <p class="text-lg text-gray-600 mb-8">
-          {t.connectSubtitle}
-        </p>
+      <p class="text-lg text-gray-600 mb-4">
+        {t.connectSubtitle}
+      </p>
 
-        <div class="flex gap-4">
+      <div class="flex gap-4 justify-center md:justify-start">
 
-          <a href="/team"
-             class="px-6 py-3 border border-[var(--color-primary)] text-[var(--color-primary)] text-sm hover:bg-[var(--color-primary)] hover:text-white transition">
-            {t.btnTeam}
-          </a>
+  <a href="/team"
+  class="
+    inline-block
+    font-heading font-semibold text-[17px] tracking-[0.6px]
+    px-4 md:px-6 py-[12px]
+    rounded-[5px]
 
-          <a href="/contact"
-             class="px-6 py-3 bg-[var(--color-primary)] text-white text-sm hover:opacity-90 transition">
-            {t.btnContact}
-          </a>
+    text-[var(--color-primary)]
+    border-2 border-double border-[var(--color-primary)]
 
-        </div>
+    transition-all duration-300 ease-in-out
 
-      </div>
+    hover:bg-[#207E82]
+    hover:text-white
+    hover:border-[#207E82]
+  ">
+  {t.btnTeam}
+</a>
+
+  <a href="/contact"
+  class="
+    inline-block
+    font-heading font-semibold text-[17px] tracking-[0.6px]
+    px-4 md:px-6 py-[12px]
+    rounded-[5px]
+
+    text-[var(--color-primary)]
+    border-2 border-double border-[var(--color-primary)]
+
+    transition-all duration-300 ease-in-out
+
+    hover:bg-[#207E82]
+    hover:text-white
+    hover:border-[#207E82]
+  ">
+  {t.btnContact}
+</a>
+
+</div>
 
     </div>
 
-  </section>
+  </div>
+
+</section>
 
 </Layout>
