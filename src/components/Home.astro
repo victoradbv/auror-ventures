@@ -27,13 +27,11 @@ const t = {
   <!-- HERO -->
   <section class="relative h-[340px] md:h-[440px] flex items-center">
 
-    <!-- Background -->
     <div 
       class="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
       style="background-image: url('/images/Home-background.png');"
     ></div>
 
-    <!-- Content -->
     <div class="relative z-10 max-w-6xl mx-auto px-6 w-full pb-40 md:pb-10 pl-4">
       <h1 class="text-white text-[30px] md:text-[44px] leading-[1.3] tracking-[0.5px] max-w-xl font-heading">
         {t.heroTitle}
@@ -42,53 +40,45 @@ const t = {
 
   </section>
 
+  <!-- INTRO -->
+  <section class="bg-white py-24">
+    <div class="max-w-1xl md:max-w-4xl mx-auto px-6 text-center relative">
 
-<!-- INTRO -->
-<section class="bg-white py-24">
-  <div class="max-w-1xl md:max-w-4xl mx-auto px-6 text-center relative">
+      <div class="max-w-[1100px] mx-auto">
 
-    <!-- INNER WRAPPER (controls width for both text + lines) -->
-    <div class="max-w-[1100px] mx-auto">
+        <div class="flex flex-col md:hidden mb-6 gap-[1.2px]">
+          <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+          <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+        </div>
 
-      <!-- MOBILE: TOP DOUBLE LINE -->
-      <div class="flex flex-col md:hidden mb-6 gap-[1.2px]">
-        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
-        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+        <p class="font-body text-[16px] md:text-[18px] font-medium leading-[1.85] tracking-[0.6px] text-gray-800">
+          {t.introText}
+        </p>
+
+        <div class="flex flex-col md:hidden mt-6 gap-[1.2px]">
+          <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+          <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+        </div>
+
       </div>
 
-      <!-- TEXT -->
-      <p class="font-body text-[16px] md:text-[18px] font-medium leading-[1.85] tracking-[0.6px] text-gray-800">
-        {t.introText}
-      </p>
+      <div class="hidden md:flex absolute left-0 -top-6 -bottom-6 gap-[1px]">
+        <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+        <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+      </div>
 
-      <!-- MOBILE: BOTTOM DOUBLE LINE -->
-      <div class="flex flex-col md:hidden mt-6 gap-[1.2px]">
-        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
-        <div class="h-[0.5px] w-full bg-[var(--color-primary)]"></div>
+      <div class="hidden md:flex absolute right-0 -top-6 -bottom-6 gap-[1px]">
+        <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
+        <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
       </div>
 
     </div>
-
-    <!-- DESKTOP: LEFT DOUBLE LINE -->
-    <div class="hidden md:flex absolute left-0 -top-6 -bottom-6 gap-[1px]">
-      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
-      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
-    </div>
-
-    <!-- DESKTOP: RIGHT DOUBLE LINE -->
-    <div class="hidden md:flex absolute right-0 -top-6 -bottom-6 gap-[1px]">
-      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
-      <div class="w-[0.5px] bg-[var(--color-primary)]"></div>
-    </div>
-
-  </div>
-</section>
-
+  </section>
 
   <!-- SERVICES -->
-  <section class="bg-[var(--color-primary)] py-6 text-white">
+  <section class="bg-[var(--color-primary)] py-10 text-white">
 
-    <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-7xl mx-auto px-6">
 
       <h2 class="text-[30px] md:text-[44px] mb-6 text-center font-heading">
         {t.servicesTitle}
@@ -97,26 +87,34 @@ const t = {
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 font-body">
 
         {[
-          {
-            title: "Asset & Portfolio Management",
-            text: "Forecasting, regression models, and profitability analysis to support business decisions.",
-            img: "/images/service-1.jpg"
-          },
-          {
-            title: "Big Data & Automations",
-            text: "Automation of processes, databases, and digital tools to save time and reduce manual work.",
-            img: "/images/service-3.jpg"
-          },
-          {
-            title: "Software & Application Development",
-            text: "Portfolio strategies and project evaluation using financial models like NPV and IRR.",
-            img: "/images/service-2.jpg"
-          },
-          {
-            title: "Cloud Infrastructure",
-            text: "Custom tools and systems designed to improve daily operations and efficiency.",
-            img: "/images/service-3.jpg"
-          }
+            {
+        title: isES ? "Gestión de Activos y Portafolios" : "Asset & Portfolio Management",
+        text: isES
+        ? "Te mostramos qué funciona, qué no y dónde mejorar para que tu capital rinda más con menos riesgo."
+        : "Our goal is to provide tools that simplify the process of investing while minimizing risk.",
+        img: "/images/service-1.jpg"
+    },
+    {
+        title: isES ? "Big Data y Automatización" : "Big Data & Automations",
+        text: isES
+        ? "Aprovecha las últimas tecnologías para reducir el tiempo y los errores en tareas manuales repetitivas."
+        : "Take advantage of the latest technologies, reduce the time and errors involved in manual tasks.",
+        img: "/images/service-3.jpg"
+    },
+    {
+        title: isES ? "Desarrollo de Software y Aplicaciones" : "Software & Application Development",
+        text: isES
+        ? "Ya sea una aplicación o una web, te acompañamos desde el diseño hasta la implementación."
+        : "Whether you need an application or a website, we support you from design to implementation.",
+        img: "/images/service-2.jpg"
+    },
+    {
+        title: isES ? "Infraestructura Cloud" : "Cloud Infrastructure",
+        text: isES
+        ? "Moderniza tus sistemas para mejorar la seguridad y el rendimiento, con la oportunidad de integrar soluciones de IA."
+        : "Modernize your systems to improve security and performance, allowing to integrate AI solutions.",
+        img: "/images/service-4.png"
+    }
         ].map(service => (
 
           <div class="group">
@@ -124,7 +122,7 @@ const t = {
             <a href="#" class="block relative overflow-hidden">
 
               <div
-                class="h-54 md:h-64 bg-cover bg-center"
+                class="aspect-[3/2] bg-cover bg-center"
                 style={`background-image: url(${service.img})`}
               ></div>
 
@@ -132,8 +130,7 @@ const t = {
 
               <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center">
 
-                <h3 class="text-lg font-body max-w-[88%] leading-tight
-                            transition-transform group-hover:translate-x-1">
+                <h3 class="text-lg font-body max-w-[88%] leading-tight transition-transform group-hover:translate-x-1">
                   {service.title}
                 </h3>
 
@@ -145,7 +142,7 @@ const t = {
 
             </a>
 
-            <p class="mt-4 text-sm text-white/90">
+            <p class="mt-2 text-sm md:text-base text-white/90 px-2">
               {service.text}
             </p>
 
@@ -159,74 +156,41 @@ const t = {
 
   </section>
 
-
   <!-- CONNECT -->
   <section class="bg-white py-10">
 
-  <div class="max-w-3xl mx-auto px-6 grid md:grid-cols-[0.8fr_1.2fr] gap-4 md:gap-8 items-center">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-[0.8fr_1.2fr] gap-4 md:gap-8 items-center">
 
-    <!-- IMAGE -->
-    <div class="flex justify-center">
-      <img src="/images/contact-us.png" class="w-[180px] h-[180px] med:w-[250px] med:h-[250px] object-cover" />
-    </div>
+      <div class="flex justify-center">
+        <img src="/images/contact-us.png" class="w-[180px] h-[180px] md:w-[250px] md:h-[250px] object-cover" />
+      </div>
 
-    <!-- CONTENT -->
-    <div class="flex flex-col justify-center h-full text-center md:text-left">
+      <div class="flex flex-col justify-center h-full text-center md:text-left">
 
-      <h2 class="text-[30px] md:text-[44px] mb-4 font-heading">
-        {t.connectTitle}
-      </h2>
+        <h2 class="text-[30px] md:text-[44px] mb-2 font-heading">
+          {t.connectTitle}
+        </h2>
 
-      <p class="text-lg text-gray-600 mb-4">
-        {t.connectSubtitle}
-      </p>
+        <p class="font-body text-[16px] md:text-[18px] font-medium leading-[1.85] tracking-[0.6px] text-gray-800 mb-6">
+          {t.connectSubtitle}
+        </p>
 
-      <div class="flex gap-4 justify-center md:justify-start">
+        <div class="flex gap-4 justify-center md:justify-start">
 
-  <a href="/team"
-  class="
-    inline-block
-    font-heading font-semibold text-[17px] tracking-[0.6px]
-    px-4 md:px-6 py-[12px]
-    rounded-[5px]
+          <a href="/team" class="inline-block font-heading font-semibold text-[17px] tracking-[0.6px] px-4 md:px-6 py-[12px] rounded-[5px] text-[var(--color-primary)] border-2 border-double border-[var(--color-primary)] transition-all duration-300 ease-in-out hover:bg-[#207E82] hover:text-white hover:border-[#207E82]">
+            {t.btnTeam}
+          </a>
 
-    text-[var(--color-primary)]
-    border-2 border-double border-[var(--color-primary)]
+          <a href="/contact" class="inline-block font-heading font-semibold text-[17px] tracking-[0.6px] px-4 md:px-6 py-[12px] rounded-[5px] text-[var(--color-primary)] border-2 border-double border-[var(--color-primary)] transition-all duration-300 ease-in-out hover:bg-[#207E82] hover:text-white hover:border-[#207E82]">
+            {t.btnContact}
+          </a>
 
-    transition-all duration-300 ease-in-out
+        </div>
 
-    hover:bg-[#207E82]
-    hover:text-white
-    hover:border-[#207E82]
-  ">
-  {t.btnTeam}
-</a>
-
-  <a href="/contact"
-  class="
-    inline-block
-    font-heading font-semibold text-[17px] tracking-[0.6px]
-    px-4 md:px-6 py-[12px]
-    rounded-[5px]
-
-    text-[var(--color-primary)]
-    border-2 border-double border-[var(--color-primary)]
-
-    transition-all duration-300 ease-in-out
-
-    hover:bg-[#207E82]
-    hover:text-white
-    hover:border-[#207E82]
-  ">
-  {t.btnContact}
-</a>
-
-</div>
+      </div>
 
     </div>
 
-  </div>
-
-</section>
+  </section>
 
 </Layout>

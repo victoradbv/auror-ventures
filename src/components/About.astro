@@ -1,0 +1,172 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const t = {
+  title: isES ? "Sobre Nosotros" : "About Us",
+
+  intro: isES
+    ? "Nuestro equipo cuenta con una trayectoria comprobada de éxito en empresas pequeñas, medianas y grandes. Con experiencia viviendo en distintos países y trabajando con equipos globales, aportamos una visión valiosa que impulsa el crecimiento empresarial. Nuestro objetivo es ofrecer asesoramiento práctico y apoyo continuo para ayudar a los negocios a crecer en cada etapa."
+    : "Our team has a proven track record of success within business of a variety of industries. With experience living in different countries and working with global teams, we bring valuable insights that drive business success. Our goal is to provide practical advice and support, helping businesses thrive at every stage of growth.",
+
+  btn: isES ? "Agendar una consulta" : "Schedule a Consultation",
+};
+
+const team = [
+  {
+    name: "Victor Dos Barros",
+    role: isES ? "Desarrollador" : "Developer",
+    text: isES
+      ? "Especializado en análisis financiero y decisiones orientadas a mejorar resultados."
+      : "Focused on financial analysis and decision-making to improve results.",
+    img: "/images/team-1.jpg",
+    linkedin: "#"
+  },
+  {
+    name: "Sebastian Dos Barros",
+    role: isES ? "Desarrollador" : "Developer",
+    text: isES
+      ? "Desarrolla soluciones digitales que ahorran tiempo y reducen errores."
+      : "Builds digital solutions that save time and reduce errors.",
+    img: "/images/team-2.jpg",
+    linkedin: "#"
+  },
+  {
+    name: "Iryna Gural",
+    role: isES ? "Diseñadora" : "Designer",
+    text: isES
+      ? "Convierte datos en información clara para apoyar decisiones."
+      : "Turns data into clear insights for better decisions.",
+    img: "/images/team-3.jpg",
+    linkedin: "#"
+  },
+  {
+    name: "Lens Maldonado",
+    role: isES ? "Analista" : "Analyst",
+    text: isES
+      ? "Implementa soluciones seguras y accesibles desde cualquier lugar."
+      : "Implements secure systems accessible from anywhere.",
+    img: "/images/team-4.jpg",
+    linkedin: "#"
+  }
+];
+---
+
+<Layout title={t.title}>
+
+<!-- TITLE STRIP -->
+<section class="bg-[var(--color-primary)] py-12 text-white text-center">
+  <h1 class="text-[30px] md:text-[44px] font-heading">
+    {t.title}
+  </h1>
+</section>
+
+<!-- PARAGRAPH -->
+<section class="bg-white py-12">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <p class="font-body text-[16px] md:text-[18px] font-medium leading-[1.85] tracking-[0.6px] text-gray-800">
+      {t.intro}
+    </p>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="bg-white pb-12">
+  <div class="max-w-6xl mx-auto px-6">
+
+    <div class="grid md:grid-cols-2 gap-8">
+
+      {team.map(member => (
+
+        <div class="bg-[var(--color-primary)] text-white rounded-lg p-6 flex gap-4">
+
+          <!-- IMAGE -->
+          <img
+            src={member.img}
+            class="w-20 h-20 rounded-full object-cover shrink-0"
+          />
+
+          <!-- CONTENT -->
+          <div class="flex-1">
+
+            <!-- NAME + LINKEDIN -->
+            <div class="flex items-center gap-2">
+
+            <h3 class="font-heading text-lg">
+                {member.name}
+            </h3>
+
+            <a href={member.linkedin}
+                target="_blank"
+                class="
+                w-5 h-5
+                bg-white
+                rounded-[3px]
+                flex items-center justify-center
+                hover:scale-105 transition
+                ">
+
+                <span class="
+                text-[11px]
+                font-bold
+                leading-none
+                text-[var(--color-primary)]
+                ">
+                in
+                </span>
+
+            </a>
+
+            </div>
+
+            <!-- ROLE -->
+            <p class="text-sm text-white/80 mb-2">
+              {member.role}
+            </p>
+
+            <!-- TEXT -->
+            <p class="text-sm text-white/90">
+              {member.text}
+            </p>
+
+          </div>
+
+        </div>
+
+      ))}
+
+    </div>
+
+    <!-- BUTTON -->
+    <div class="mt-14 flex justify-center">
+
+      <a href="/contact"
+        class="
+          flex items-center justify-center text-center
+          font-heading font-semibold text-[17px] tracking-[0.6px]
+          px-6 py-[12px]
+          rounded-[5px]
+
+          bg-[var(--color-primary)]
+          text-white
+          border-2 border-double border-white
+
+          transition-all duration-300 ease-in-out
+
+          hover:bg-white
+          hover:text-[var(--color-primary)]
+          hover:border-[var(--color-primary)]
+        "
+        style="width:288px;"
+      >
+        {t.btn}
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+</Layout>

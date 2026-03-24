@@ -1,10 +1,11 @@
-# Saturday
+# Phase 1
 
--Home, About Us, Contact
+-About Us, Contact
+-Standardize style.css
 -favicon.svg
-
-# Sunday
-
 -Services, projects
+
+# Phase 2
+
 -Responsive styling
 -Upload cloudflare
