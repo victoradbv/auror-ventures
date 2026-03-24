@@ -1,0 +1,107 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const t = {
+  title: isES ? "Contacto" : "Contact Us",
+
+  intro: isES
+    ? "Cuéntanos tu idea, proyecto o cualquier duda. Estaremos encantados de ayudarte."
+    : "Tell us about your idea, project, or any questions you may have. We’d love to hear from you.",
+
+  name: isES ? "Nombre" : "Name",
+  email: isES ? "Email" : "Email",
+  message: isES ? "Mensaje" : "Message",
+  submit: isES ? "Enviar" : "Send Message",
+};
+---
+
+<Layout title={t.title}>
+
+<!-- TITLE -->
+<section class="bg-[var(--color-primary)] py-12 text-white text-center">
+  <h1 class="text-[30px] md:text-[44px] font-heading">
+    {t.title}
+  </h1>
+</section>
+
+<!-- FORM -->
+<main class="mx-auto px-6 py-5 max-w-3xl">
+
+  <!-- INTRO -->
+  <p class="text-center text-[16px] md:text-[18px] text-gray-800 max-w-xl mx-auto">
+    {t.intro}
+  </p>
+
+  <form
+    action="https://formspree.io/f/xyznnnvz"
+    method="POST"
+    class="bg-white rounded-lg p-6 space-y-6"
+  >
+
+    <!-- Honeypot -->
+    <input type="text" name="_gotcha" class="hidden" />
+
+    <!-- NAME -->
+    <div class="space-y-2">
+      <label class="block text-sm font-subtitle">
+        {t.name} <span style="color:#dc2626">*</span>
+      </label>
+
+      <input
+        type="text"
+        name="name"
+        required
+        class="block w-full rounded-md border-2 px-4 py-3 focus:outline-none"
+        style="border-color: var(--color-primary)"
+      />
+    </div>
+
+    <!-- EMAIL -->
+    <div class="space-y-2">
+      <label class="block text-sm font-subtitle">
+        {t.email} <span style="color:#dc2626">*</span>
+      </label>
+
+      <input
+        type="email"
+        name="email"
+        required
+        class="block w-full rounded-md border-2 px-4 py-3 focus:outline-none"
+        style="border-color: var(--color-primary)"
+      />
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="space-y-2">
+      <label class="block text-sm font-subtitle">
+        {t.message} <span style="color:#dc2626">*</span>
+      </label>
+
+      <textarea
+        name="message"
+        rows="5"
+        required
+        class="block w-full rounded-md border-2 px-4 py-3 resize-none focus:outline-none"
+        style="border-color: var(--color-primary)"
+      ></textarea>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="flex justify-end pt-2">
+      <button
+        type="submit"
+        class="btn-primary"
+        style="width:180px;"
+      >
+        {t.submit}
+      </button>
+    </div>
+
+  </form>
+
+</main>
+
+</Layout>

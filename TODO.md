@@ -1,11 +1,10 @@
 # Phase 1
 
--About Us, Contact
--Standardize style.css
 -favicon.svg
 -Services, projects
 
 # Phase 2
 
+-Translations check
 -Responsive styling
 -Upload cloudflare

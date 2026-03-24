@@ -9,20 +9,25 @@
 ========================= */
 @font-face {
   font-family: 'Uni Neue';
-  src: url('/fonts/UniNeue-Trial-Bold.ttf') format('truetype');
-  font-weight: 400;
+  src: url('/fonts/UniNeueRegular.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
 }
 
+/* Bold (700) */
 @font-face {
-  font-family: 'Uni Light';
-  src: url('/fonts/UniNeue-Light.ttf') format('truetype');
-  font-weight: 300;
-}
-
-@font-face {
-  font-family: 'Uni Heavy';
-  src: url('/fonts/UniNeue-HeavyItalic.ttf') format('truetype');
+  font-family: 'Uni Neue';
+  src: url('/fonts/UniNeueBold.woff2') format('woff2');
   font-weight: 700;
+  font-display: swap;
+}
+
+/* Heavy (800) */
+@font-face {
+  font-family: 'Uni Neue';
+  src: url('/fonts/UniNeueHeavy.woff2') format('woff2');
+  font-weight: 800;
+  font-display: swap;
 }
 
 /* =========================
@@ -38,6 +43,12 @@
   font-family: 'Roboto';
   src: url('/fonts/Roboto-Medium.ttf') format('truetype');
   font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
 }
 
 /* =========================
@@ -80,6 +91,7 @@ body {
 /* Titles only */
 .font-heading {
   font-family: 'Uni Neue', Arial, sans-serif;
+  font-weight: 600;
 }
 
 /* UI / body (optional helper, mostly redundant) */
@@ -91,6 +103,13 @@ body {
 .font-body {
   font-family: 'Roboto', Arial, sans-serif;
   font-weight: 500;
+}
+
+.font-subtitle {
+  font-family: 'Roboto', Arial, sans-serif;
+  font-weight: 700; /* ✅ true bold */
+  color: rgba(0, 0, 0, 0.9); /* ✅ softer black */
+  letter-spacing: 0.2px; /* subtle polish */
 }
 
 /* =========================
@@ -124,6 +143,7 @@ a {
   padding-top: 12px;
   padding-bottom: 12px;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .btn-primary:hover {

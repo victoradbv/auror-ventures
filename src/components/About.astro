@@ -8,7 +8,7 @@ const t = {
   title: isES ? "Sobre Nosotros" : "About Us",
 
   intro: isES
-    ? "Nuestro equipo cuenta con una trayectoria comprobada de éxito en empresas pequeñas, medianas y grandes. Con experiencia viviendo en distintos países y trabajando con equipos globales, aportamos una visión valiosa que impulsa el crecimiento empresarial. Nuestro objetivo es ofrecer asesoramiento práctico y apoyo continuo para ayudar a los negocios a crecer en cada etapa."
+    ? "Nuestro equipo cuenta con una trayectoria comprobada en empresas de distintos tamaños y sectores. Con experiencia internacional y trabajando con equipos globales, aportamos una visión práctica orientada a mejorar resultados. Nuestro objetivo es ayudar a los negocios a crecer con soluciones claras, eficientes y basadas en datos."
     : "Our team has a proven track record of success within business of a variety of industries. With experience living in different countries and working with global teams, we bring valuable insights that drive business success. Our goal is to provide practical advice and support, helping businesses thrive at every stage of growth.",
 
   btn: isES ? "Agendar una consulta" : "Schedule a Consultation",
@@ -16,38 +16,34 @@ const t = {
 
 const team = [
   {
-    name: "Victor Dos Barros",
-    role: isES ? "Desarrollador" : "Developer",
+    name: "Victor",
     text: isES
-      ? "Especializado en análisis financiero y decisiones orientadas a mejorar resultados."
-      : "Focused on financial analysis and decision-making to improve results.",
+      ? "Conecta finanzas y tecnología para crear sistemas que ayudan a los negocios a operar de forma más eficiente."
+      : "Brings together finance and technology to create systems with modern infrastructure.",
     img: "/images/team-1.jpg",
     linkedin: "#"
   },
   {
-    name: "Sebastian Dos Barros",
-    role: isES ? "Desarrollador" : "Developer",
+    name: "Sebas",
     text: isES
-      ? "Desarrolla soluciones digitales que ahorran tiempo y reducen errores."
-      : "Builds digital solutions that save time and reduce errors.",
+      ? "Con experiencia desde el diseño de videojuegos hasta plataformas exigentes, desarrolla software que se mantiene sólido y estable."
+      : "With experience from game design to demanding platforms, he builds software that stays reliable.",
     img: "/images/team-2.jpg",
     linkedin: "#"
   },
   {
-    name: "Iryna Gural",
-    role: isES ? "Diseñadora" : "Designer",
+    name: "Ira",
     text: isES
-      ? "Convierte datos en información clara para apoyar decisiones."
-      : "Turns data into clear insights for better decisions.",
+      ? "Crea experiencias digitales inmersivas, dando vida a ideas a través de un diseño virtual cuidado y detallado."
+      : "Creates immersive digital experiences, bringing ideas to life through refined virtual design.",
     img: "/images/team-3.jpg",
     linkedin: "#"
   },
   {
-    name: "Lens Maldonado",
-    role: isES ? "Analista" : "Analyst",
+    name: "Lens",
     text: isES
-      ? "Implementa soluciones seguras y accesibles desde cualquier lugar."
-      : "Implements secure systems accessible from anywhere.",
+      ? "Transforma datos en información clara, mejorando procesos de reporte y apoyando decisiones más inteligentes."
+      : "Transforms data into clear insights, improving financial reporting and decision-making.",
     img: "/images/team-4.jpg",
     linkedin: "#"
   }
@@ -85,7 +81,7 @@ const team = [
           <!-- IMAGE -->
           <img
             src={member.img}
-            class="w-20 h-20 rounded-full object-cover shrink-0"
+            class="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shrink-0"
           />
 
           <!-- CONTENT -->
@@ -94,40 +90,36 @@ const team = [
             <!-- NAME + LINKEDIN -->
             <div class="flex items-center gap-2">
 
-            <h3 class="font-heading text-lg">
+              <h3 class="font-heading text-lg md:text-xl">
                 {member.name}
-            </h3>
+              </h3>
 
-            <a href={member.linkedin}
+              <a href={member.linkedin}
                 target="_blank"
                 class="
-                w-5 h-5
-                bg-white
-                rounded-[3px]
-                flex items-center justify-center
-                hover:scale-105 transition
+                  w-5 h-5
+                  bg-white
+                  rounded-[3px]
+                  flex items-center justify-center
+                  transition-transform duration-200
+                  hover:scale-110
                 ">
 
                 <span class="
-                text-[11px]
-                font-bold
-                leading-none
-                text-[var(--color-primary)]
+                  text-[10px] md:text-[12px]
+                  font-bold
+                  leading-none
+                  text-[var(--color-primary)]
                 ">
-                in
+                  in
                 </span>
 
-            </a>
+              </a>
 
             </div>
 
-            <!-- ROLE -->
-            <p class="text-sm text-white/80 mb-2">
-              {member.role}
-            </p>
-
             <!-- TEXT -->
-            <p class="text-sm text-white/90">
+            <p class="text-sm md:text-base text-white/90 mt-2">
               {member.text}
             </p>
 
@@ -143,22 +135,7 @@ const team = [
     <div class="mt-14 flex justify-center">
 
       <a href="/contact"
-        class="
-          flex items-center justify-center text-center
-          font-heading font-semibold text-[17px] tracking-[0.6px]
-          px-6 py-[12px]
-          rounded-[5px]
-
-          bg-[var(--color-primary)]
-          text-white
-          border-2 border-double border-white
-
-          transition-all duration-300 ease-in-out
-
-          hover:bg-white
-          hover:text-[var(--color-primary)]
-          hover:border-[var(--color-primary)]
-        "
+        class="btn-primary flex items-center justify-center text-center"
         style="width:288px;"
       >
         {t.btn}
