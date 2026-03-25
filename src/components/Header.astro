@@ -15,7 +15,7 @@ const switchPath = isES ? enPath : esPath;
 const currentFlag = isES ? '/images/flags/es.png' : '/images/flags/en.png';
 const otherFlag = isES ? '/images/flags/en.png' : '/images/flags/es.png';
 
-// Translations (ONLY TEXT)
+// Translations
 const t = isES
   ? {
       about: "Sobre Nosotros",
@@ -67,22 +67,19 @@ const t = isES
       <!-- Services -->
       <div class="relative group cursor-pointer">
 
-        <button class="flex items-center gap-2 hover:text-[var(--color-hover)] cursor-pointer">
+        <button class="flex items-center gap-2 hover:text-[var(--color-hover)]">
           {t.services}
           <svg class="w-4 h-4 mt-[1px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M6 9l6 6 6-6" />
           </svg>
         </button>
 
-        <!-- Dropdown -->
         <div class="absolute left-0 top-full pt-2 z-[999] hidden group-hover:block">
-
           <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm md:text-base font-ui inline-block">
 
             <!-- Finance -->
             <div class="relative group/item border-b border-white/30">
-
-              <a href={`${base}/services-finance-solutions`} 
+              <a href={`${base}/finance-solutions`} 
                  class="flex w-full items-center justify-between px-5 py-3 hover:bg-[var(--color-primary-dark)] transition whitespace-nowrap">
                 <span>{t.finance}</span>
                 <svg class="w-4 h-4 ml-2 text-gray-300 rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -90,26 +87,21 @@ const t = isES
                 </svg>
               </a>
 
-              <!-- Submenu -->
               <div class="absolute top-0 left-full hidden group-hover/item:block z-[999]">
                 <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm md:text-base font-ui inline-block">
-
-                  <a href="#" class="block px-6 py-3 border-b border-white/30 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
+                  <a href=`${base}/asset-management` class="block px-6 py-3 border-b border-white/30 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
                     {t.asset}
                   </a>
-
-                  <a href="#" class="block px-6 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
+                  <a href=`${base}/big-data` class="block px-6 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
                     {t.data}
                   </a>
-
                 </div>
               </div>
             </div>
 
             <!-- Software -->
             <div class="relative group/item">
-
-              <a href={`${base}/services-software-cloud`} 
+              <a href={`${base}/software-cloud`} 
                  class="flex w-full items-center justify-between px-5 py-3 hover:bg-[var(--color-primary-dark)] transition whitespace-nowrap">
                 <span>{t.software}</span>
                 <svg class="w-4 h-4 ml-2 text-gray-300 rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -117,18 +109,14 @@ const t = isES
                 </svg>
               </a>
 
-              <!-- Submenu -->
               <div class="absolute top-0 left-full hidden group-hover/item:block z-[999]">
                 <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm md:text-base font-ui inline-block">
-
                   <a href="#" class="block px-6 py-3 border-b border-white/30 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
                     {t.dev}
                   </a>
-
                   <a href="#" class="block px-6 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
                     {t.cloud}
                   </a>
-
                 </div>
               </div>
             </div>
@@ -157,12 +145,10 @@ const t = isES
 
         <div class="absolute left-0 top-full pt-2 hidden group-hover:block z-[999]">
           <div class="bg-[var(--color-primary)] text-white shadow-lg text-sm font-ui inline-block min-w-[120px]">
-
             <a href={switchPath} class="flex items-center gap-2 px-4 py-3 hover:bg-[var(--color-primary-dark)] whitespace-nowrap">
               <img src={otherFlag} class="w-4 h-[11px]" />
               <span class="text-white">{t.switchLang}</span>
             </a>
-
           </div>
         </div>
 
@@ -188,33 +174,17 @@ const t = isES
       <button id="services-btn" class="flex items-center gap-2">
         <span>{t.services}</span>
         <span>▾</span>
-        </button>
+      </button>
 
       <div id="services-submenu" class="hidden mt-3 ml-2 flex flex-col gap-3 text-sm font-ui">
-
-        <!-- Finance -->
-        <div>
-          <button class="w-full text-left font-medium" onclick="toggleSub('finance')">
-            {t.finance}
-          </button>
-          <div id="finance" class="hidden ml-3 mt-2 flex flex-col gap-2 text-xs">
-            <a href="#">{t.asset}</a>
-            <a href="#">{t.data}</a>
-          </div>
-        </div>
-
-        <!-- Software -->
-        <div>
-          <button class="w-full text-left font-medium" onclick="toggleSub('software')">
-            {t.software}
-          </button>
-          <div id="software" class="hidden ml-3 mt-2 flex flex-col gap-2 text-xs">
-            <a href="#">{t.dev}</a>
-            <a href="#">{t.cloud}</a>
-          </div>
-        </div>
-
+        <a href={`${base}/finance-solutions`} class="hover:text-[var(--color-hover)]">
+          {t.finance}
+        </a>
+        <a href={`${base}/software-cloud`} class="hover:text-[var(--color-hover)]">
+          {t.software}
+        </a>
       </div>
+
     </div>
 
     <a href={`${base}/projects`} class="py-3 border-b border-[var(--color-divider)]">{t.projects}</a>
@@ -257,9 +227,5 @@ const t = isES
     servicesBtn.addEventListener("click", () => {
       servicesMenu.classList.toggle("hidden");
     });
-
-    function toggleSub(id) {
-      document.getElementById(id).classList.toggle("hidden");
-    }
   </script>
 </header>

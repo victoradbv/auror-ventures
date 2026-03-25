@@ -1,0 +1,92 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const t = {
+  title: isES ? "Soluciones Financieras" : "Finance Solutions",
+
+  services: [
+    {
+      title: isES ? "Gestión de Portafolios" : "Asset & Portfolio Management",
+      text: isES
+        ? "¿Quieres empezar a invertir o reducir el tiempo y esfuerzo de gestionar tus inversiones? Nuestro enfoque te ayuda a entender la asignación de capital mientras implementas soluciones modernas."
+        : "Want to start investing or reduce the time and effort it takes to manage your investments? Our approach helps you understand capital allocation while implementing modern solutions.",
+      img: "/images/service-1-1.png"
+    },
+    {
+      title: isES ? "Evaluación de Proyectos" : "Big Data & Automations",
+      text: isES
+        ? "Muchas empresas generan datos valiosos pero no cuentan con sistemas para gestionarlos. Te ayudamos a implementar herramientas que organizan la información y mejoran la toma de decisiones."
+        : "Most businesses generate valuable data but lack the systems to manage it. We help you implement tools that organize your data and support better decision-making.",
+      img: "/images/service-1-2.png"
+    }
+  ]
+};
+---
+
+<Layout title={t.title}>
+
+<!-- TITLE STRIP -->
+<section class="bg-[var(--color-primary)] py-6 text-white text-center">
+  <h1 class="text-[30px] md:text-[44px] font-heading">
+    {t.title}
+  </h1>
+</section>
+
+<!-- SERVICES -->
+<section class="bg-white py-16">
+
+  <div class="max-w-5xl mx-auto px-6">
+
+    <div class="grid md:grid-cols-2 gap-10">
+
+      {t.services.map(service => (
+
+        <div class="rounded-lg overflow-hidden flex flex-col h-full">
+
+          <!-- IMAGE BLOCK -->
+          <a href="#" class="block relative group">
+
+            <div
+              class="h-[140px] md:h-[160px] bg-cover bg-center"
+              style={`background-image: url(${service.img})`}
+            ></div>
+
+            <div class="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition"></div>
+
+            <div class="absolute bottom-4 left-4 right-4 flex justify-between items-center text-white">
+
+              <h3 class="text-xl md:text-2xl font-heading max-w-[85%] leading-tight transition-transform group-hover:translate-x-1">
+                {service.title}
+              </h3>
+
+              <span class="text-2xl md:text-3xl transition-transform group-hover:translate-x-1">
+                ➙
+              </span>
+
+            </div>
+
+          </a>
+
+          <!-- TEXT BLOCK (fixed height for consistency) -->
+          <div class="bg-gray-100 px-5 py-5 h-[180px] md:h-[140px] flex items-start">
+
+            <p class="text-base md:text-base text-gray-700 leading-[1.6] font-ui">
+              {service.text}
+            </p>
+
+          </div>
+
+        </div>
+
+      ))}
+
+    </div>
+
+  </div>
+
+</section>
+
+</Layout>

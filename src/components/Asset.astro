@@ -1,0 +1,70 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const t = {
+  title: isES ? "Gestión de Activos y Portafolios" : "Asset & Portfolio Management",
+
+  sectionTitle: isES ? "Haciendo crecer tu patrimonio" : "Growing Your Wealth",
+
+  text: isES
+    ? "Tanto si estás empezando a invertir como si ya tienes experiencia, nuestro objetivo es ayudarte a construir portafolios alineados con los principios fundamentales de inversión. Ofrecemos servicios educativos que te guían en todo el proceso, desde la apertura de una cuenta hasta el desarrollo de una estrategia clara de asignación de capital."
+    : "Whether you’re new to investing or have prior experience, our goal is to help you build portfolios that align with the core principles of investing. We offer educational services that guide you through the entire process—from setting up an account to developing a clear, strategic approach to capital allocation."
+};
+---
+
+<Layout title={t.title}>
+
+<!-- TITLE STRIP WITH IMAGE -->
+<section class="relative h-[180px] md:h-[180px] text-white flex items-end">
+
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style="background-image: url('/images/service-1-1.png');"
+  ></div>
+
+  <!-- TITLE (bottom-left, padded) -->
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-8 pb-6 md:pb-8">
+
+    <h1 class="text-[30px] md:text-[44px] font-heading max-w-[700px] leading-[1.2]">
+      {t.title}
+    </h1>
+
+  </div>
+
+</section>
+
+<!-- CONTENT -->
+<section class="bg-white py-4">
+
+  <div class="max-w-5xl mx-auto px-6 text-center">
+
+    <h2 class="text-[26px] md:text-[40px] font-heading mb-4">
+      {t.sectionTitle}
+    </h2>
+
+    <p class="text-[16px] md:text-[18px] text-gray-800 leading-[1.7] font-ui">
+      {t.text}
+    </p>
+
+  </div>
+
+</section>
+
+<!-- LARGE IMAGE -->
+<section class="bg-white pb-20">
+
+  <div class="max-w-6xl mx-auto px-6 flex justify-center">
+
+    <img 
+      src="/images/service-1-1.png"
+      class="w-full max-w-[1000px] object-cover rounded-md"
+    />
+
+  </div>
+
+</section>
+
+</Layout>

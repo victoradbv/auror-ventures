@@ -1,10 +1,10 @@
 # Phase 1
 
--favicon.svg
 -Services, projects
 
 # Phase 2
 
--Translations check
+-favicon.svg
+-Text and translations
 -Responsive styling
 -Upload cloudflare
