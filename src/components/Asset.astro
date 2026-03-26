@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 const path = Astro.url.pathname;
 const isES = path.startsWith('/es');
 
+const base = isES ? '/es' : '/en';
+
 const t = {
   title: isES ? "Gestión de Activos y Portafolios" : "Asset & Portfolio Management",
 
@@ -25,13 +27,10 @@ const t = {
     style="background-image: url('/images/service-1-1.png');"
   ></div>
 
-  <!-- TITLE (bottom-left, padded) -->
   <div class="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-8 pb-6 md:pb-8">
-
     <h1 class="text-[30px] md:text-[44px] font-heading max-w-[700px] leading-[1.2]">
       {t.title}
     </h1>
-
   </div>
 
 </section>
@@ -45,7 +44,7 @@ const t = {
       {t.sectionTitle}
     </h2>
 
-    <p class="text-[16px] md:text-[18px] text-gray-800 leading-[1.7] font-ui">
+    <p class="text-[16px] md:text-[18px] text-gray-800 leading-[1.7] font-ui mb-4">
       {t.text}
     </p>
 
@@ -53,15 +52,153 @@ const t = {
 
 </section>
 
-<!-- LARGE IMAGE -->
-<section class="bg-white pb-20">
+<!-- IMAGE + DISCLAIMER -->
+<section class="bg-white pb-10 md:pb-14">
 
-  <div class="max-w-6xl mx-auto px-6 flex justify-center">
+  <div class="max-w-6xl mx-auto flex flex-col items-center">
 
-    <img 
-      src="/images/service-1-1.png"
-      class="w-full max-w-[1000px] object-cover rounded-md"
-    />
+    <!-- IMAGE -->
+    <div class="w-full md:max-w-[950px] px-2 md:px-0">
+
+      <img 
+        src="/images/service-asset.png"
+        class="w-full object-cover 
+               rounded-lg border-2
+               transition-all duration-300
+               hover:shadow-[0_0_20px_rgba(0,0,0,0.25)]"
+        style="border-color: var(--color-primary)"
+      />
+
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div class="w-full md:max-w-[950px] mx-auto text-right text-xs md:text-sm italic text-gray-600 mt-2">
+
+      <div class="mx-auto w-[92%] md:w-[98%]">
+
+        <div class="flex flex-col gap-1.5 leading-[1.6]">
+          <p>* The S&amp;P 500 is widely used as a benchmark because it represents the performance of the U.S. stock market.</p>
+          <p>** Past performance is not indicative of future results.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CTA SECTION -->
+<section class="bg-[var(--color-primary)] py-4">
+
+  <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-[1.4fr_0.7fr] gap-4 items-center">
+
+    <!-- LEFT (TEXT) -->
+    <div class="text-white text-center md:text-center">
+
+      <h2 class="text-[26px] md:text-[40px] font-heading mb-4">
+        Time Is Money
+      </h2>
+
+      <p class="text-[15px] md:text-[18px] leading-[1.6] font-ui mb-6 text-white/90">
+        Focus on what matters most while we help you structure your financial decisions and systems. 
+        Our approach is designed to save you time, reduce complexity, and improve long-term outcomes.
+      </p>
+
+      <div class="flex justify-center md:justify-center">
+        <a href=`${base}/contact` class="btn-primary bg-white text-[var(--color-primary)] border-white hover:bg-white/90 mb-4">
+          CONTACT US
+        </a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT (IMAGE) -->
+    <div class="hidden md:flex justify-center">
+
+      <img 
+        src="/images/service-asset-2.png"
+        class="w-full max-w-[150px] md:max-w-[250px] object-cover rounded-md"
+      />
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ESSENTIALS -->
+<section class="bg-white py-4">
+
+  <div class="max-w-6xl mx-auto px-6 text-center">
+
+    <!-- TITLE -->
+    <h2 class="text-[26px] md:text-[40px] font-heading mb-4">
+      The Essentials of Investing
+    </h2>
+
+    <!-- PARAGRAPH -->
+    <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui max-w-3xl mx-auto mb-6">
+      Investing is key to long-term financial success. At Auror Ventures, we help you understand the fundamental principles needed to successfully grow your wealth:
+    </p>
+
+    <!-- CARDS -->
+    <div class="grid md:grid-cols-3 gap-6 text-center">
+
+      <!-- CARD 1 -->
+      <div class="bg-gray-100 rounded-lg p-8 
+                  transition-all duration-300 transform
+                  hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]">
+
+        <h3 class="font-heading text-lg md:text-2xl mb-3 text-[var(--color-primary)]">
+          Valuation
+        </h3>
+
+        <p class="text-sm md:text-base text-black leading-[1.7] font-ui">
+          As an investor, you must understand the reasons behind the prices of your assets. With our guidance, your portfolio is built on real value rather than speculation. This is what separates investing from trading.
+        </p>
+
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="bg-gray-100 rounded-lg p-8 
+                  transition-all duration-300 transform
+                  hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]">
+
+        <h3 class="font-heading text-lg md:text-2xl mb-3 text-[var(--color-primary)]">
+          Time Horizon
+        </h3>
+
+        <p class="text-sm md:text-base text-black leading-[1.7] font-ui">
+          Investing is not a shortcut to quick profits. In the short term, markets are unpredictable, much like a coin flip. Over longer periods, historical trends allow us to better estimate future outcomes.
+        </p>
+
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="bg-gray-100 rounded-lg p-8 
+                  transition-all duration-300 transform
+                  hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]">
+
+        <h3 class="font-heading text-lg md:text-2xl mb-3 text-[var(--color-primary)]">
+          Diversification
+        </h3>
+
+        <p class="text-sm md:text-base text-black leading-[1.7] font-ui">
+          Our strategies reduce risk by spreading investments across multiple assets. Instead of relying on a single position, a diversified portfolio distributes risk across hundreds or even thousands of assets.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <div class="mt-8 mb-4 flex justify-center">
+      <a href=`${base}/contact` class="btn-primary">
+        SCHEDULE A CONSULTATION
+      </a>
+    </div>
 
   </div>
 

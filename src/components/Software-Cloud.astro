@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 const path = Astro.url.pathname;
 const isES = path.startsWith('/es');
 
+const base = isES ? '/es' : '/en';
+
 const t = {
   title: isES ? "Soluciones Financieras" : "Software & Cloud",
 
@@ -13,14 +15,16 @@ const t = {
       text: isES
         ? "¿Quieres empezar a invertir o reducir el tiempo y esfuerzo de gestionar tus inversiones? Nuestro enfoque te ayuda a entender la asignación de capital mientras implementas soluciones modernas."
         : "Have an idea or concept for software, a website, or an app? We turn it into a fully functional solution, designed to perform, handle demand, and deliver a high-quality user experience.",
-      img: "/images/service-2-2.png"
+      img: "/images/service-2-2.png",
+      link: `${base}/software-development`
     },
     {
       title: isES ? "Evaluación de Proyectos" : "Cloud Infrastructure",
       text: isES
         ? "Muchas empresas generan datos valiosos pero no cuentan con sistemas para gestionarlos. Te ayudamos a implementar herramientas que organizan la información y mejoran la toma de decisiones."
         : "We modernize and upgrade business systems through cloud infrastructure, data management, and secure environments. This creates the foundation needed to integrate AI and make better use of your data.",
-      img: "/images/service-2-1.png"
+      img: "/images/service-2-1.png",
+      link: `${base}/cloud-infrastructure`
     }
   ]
 };
@@ -47,7 +51,7 @@ const t = {
         <div class="rounded-lg overflow-hidden flex flex-col h-full">
 
           <!-- IMAGE BLOCK -->
-          <a href="#" class="block relative group">
+          <a href={service.link} class="block relative group">
 
             <div
               class="h-[140px] md:h-[160px] bg-cover bg-center"

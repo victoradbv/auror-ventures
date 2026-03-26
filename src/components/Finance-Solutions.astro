@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 const path = Astro.url.pathname;
 const isES = path.startsWith('/es');
 
+const base = isES ? '/es' : '/en';
+
 const t = {
   title: isES ? "Soluciones Financieras" : "Finance Solutions",
 
@@ -13,14 +15,16 @@ const t = {
       text: isES
         ? "¿Quieres empezar a invertir o reducir el tiempo y esfuerzo de gestionar tus inversiones? Nuestro enfoque te ayuda a entender la asignación de capital mientras implementas soluciones modernas."
         : "Want to start investing or reduce the time and effort it takes to manage your investments? Our approach helps you understand capital allocation while implementing modern solutions.",
-      img: "/images/service-1-1.png"
+      img: "/images/service-1-1.png",
+      link: `${base}/asset-management`
     },
     {
       title: isES ? "Evaluación de Proyectos" : "Big Data & Automations",
       text: isES
         ? "Muchas empresas generan datos valiosos pero no cuentan con sistemas para gestionarlos. Te ayudamos a implementar herramientas que organizan la información y mejoran la toma de decisiones."
         : "Most businesses generate valuable data but lack the systems to manage it. We help you implement tools that organize your data and support better decision-making.",
-      img: "/images/service-1-2.png"
+      img: "/images/service-1-2.png",
+      link: `${base}/big-data`
     }
   ]
 };
@@ -47,7 +51,7 @@ const t = {
         <div class="rounded-lg overflow-hidden flex flex-col h-full">
 
           <!-- IMAGE BLOCK -->
-          <a href="#" class="block relative group">
+          <a href={service.link} class="block relative group">
 
             <div
               class="h-[140px] md:h-[160px] bg-cover bg-center"
