@@ -1,6 +1,6 @@
 # Phase 1
 
--Services, projects
+-Projects
 
 # Phase 2
 

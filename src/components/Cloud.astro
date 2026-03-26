@@ -1,0 +1,139 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const base = isES ? '/es' : '/en';
+
+const t = {
+  title: isES ? "Datos y Automatización" : "Cloud Infrastructure",
+
+  sectionTitle: isES ? "Sistemas de Datos" : "Big Data Systems",
+
+  text: isES
+    ? "Creamos infraestructuras de datos seguras y accesibles que te permiten aprovechar la información que genera tu negocio a través de transacciones e interacciones online. Al organizar y centralizar los datos, puedes detectar tendencias rápidamente, identificar ineficiencias y tomar decisiones más informadas. Con el sistema adecuado, los datos del día a día se convierten en oportunidades reales de crecimiento."
+    : "We implement cloud infrastructure and connect your existing applications, websites, and data into a more reliable and cohesive environment. This improves performance, reduces limitations, and ensures your technology can support higher demand and more advanced use cases.",
+
+  ctaTitle: isES
+    ? "Ahorra tiempo con soluciones de software"
+    : "Bring AI Into Your Business",
+
+  ctaText: isES
+    ? "Utiliza tecnología moderna para simplificar tus operaciones diarias y reducir tareas repetitivas. Estas herramientas también mejoran la experiencia del cliente, ayudando a tu negocio a mantenerse competitivo en un mercado en constante cambio. Además, son accesibles y fáciles de implementar."
+    : "With the right foundation in place, your technology can support advanced solutions such as AI-driven features, automation, and data-based applications. From image recognition and natural language processing to content generation and personalized user experiences.",
+
+  ctaText2: isES
+    ? "Utiliza tecnología moderna para simplificar tus operaciones diarias y reducir tareas repetitivas. Estas herramientas también mejoran la experiencia del cliente, ayudando a tu negocio a mantenerse competitivo en un mercado en constante cambio. Además, son accesibles y fáciles de implementar."
+    : "Even if you're new to AI, we help you understand how it works and how it applies to your business. Our goal is to keep you up to date with the latest technology in a practical and accessible way.",
+  
+  ctaButton: isES
+    ? "AGENDA UNA CONSULTA"
+    : "SCHEDULE A CONSULTATION"
+};
+---
+
+<Layout title={t.title}>
+
+<!-- TITLE STRIP WITH IMAGE -->
+<section class="relative h-[180px] md:h-[180px] text-white flex items-end">
+
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style="background-image: url('/images/service-2-1.png');"
+  ></div>
+
+  <div class="relative z-10 w-full max-w-6xl mx-auto px-6 md:px-8 pb-6 md:pb-8">
+    <h1 class="text-[30px] md:text-[44px] font-heading max-w-[800px] leading-[1.2]">
+      {t.title}
+    </h1>
+  </div>
+
+</section>
+
+<!-- CONTENT -->
+<section class="bg-white py-4">
+
+  <div class="max-w-5xl mx-auto px-6 text-center">
+
+    <p class="text-[16px] md:text-[18px] text-gray-800 leading-[1.7] font-ui mb-4">
+      {t.text}
+    </p>
+
+  </div>
+
+</section>
+
+<!-- IMAGE-->
+<section class="bg-white pb-8">
+
+  <div class="w-full flex flex-col items-center">
+
+    <div class="w-full md:max-w-[950px] px-2 md:px-0">
+
+      <div class="relative w-full overflow-hidden rounded-lg border-2"
+           style="border-color: var(--color-primary)">
+
+        <img 
+          src="/images/service-cloud.gif"
+          class="w-full object-contain object-center"
+        />
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SOFTWARE CTA BLOCK -->
+<section class="bg-white py-10">
+
+  <div class="max-w-5xl mx-auto px-6">
+
+    <div class="grid md:grid-cols-[0.8fr_1.2fr] items-stretch">
+
+      <!-- LEFT -->
+      <div class="flex justify-center md:justify-start">
+
+        <div class="w-full h-[140px] md:h-auto overflow-hidden">
+          <img 
+            src="/images/service-cloud-2.png"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+      <div class="bg-gray-100 p-6 md:p-6">
+
+        <h2 class="text-[24px] md:text-[36px] font-heading mb-4 text-left">
+          {t.ctaTitle}
+        </h2>
+
+        <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui text-left mb-4">
+          {t.ctaText}
+        </p>
+
+        <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui text-left">
+          {t.ctaText2}
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- BUTTON -->
+    <div class="mt-10 mb-2 flex justify-center">
+      <a href={`${base}/contact`} class="btn-primary">
+        {t.ctaButton}
+      </a>
+    </div>
+
+  </div>
+
+</section>
+
+</Layout>
