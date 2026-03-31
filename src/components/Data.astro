@@ -29,7 +29,7 @@ const t = {
 };
 ---
 
-<Layout title={t.title}>
+<Layout tabTitle={isES ? "Servicios" : "Services"}>
 
 <!-- TITLE STRIP WITH IMAGE -->
 <section class="relative h-[180px] md:h-[180px] text-white flex items-end">
@@ -65,9 +65,11 @@ const t = {
 
   <div class="w-full flex flex-col items-center">
 
-    <div class="w-full md:max-w-[900px] px-2 md:px-0">
+    <div class="w-full md:max-w-[950px] px-2 md:px-0">
 
-      <div class="relative w-full overflow-hidden rounded-lg border-2"
+      <div class="relative w-full overflow-hidden rounded-lg border-2
+                  transition-all duration-300
+                  hover:shadow-[0_0_20px_rgba(0,0,0,0.25)]"
            style="border-color: var(--color-primary)">
 
         <img 
@@ -98,7 +100,7 @@ const t = {
       <!-- LEFT -->
       <div class="flex justify-center md:justify-start">
 
-        <div class="w-full h-[140px] md:h-auto overflow-hidden">
+        <div class="w-full h-[140px] md:h-[350px] overflow-hidden">
           <img 
             src="/images/service-data-2.jpg"
             class="w-full h-full object-cover"

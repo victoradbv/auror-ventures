@@ -20,12 +20,8 @@ const t = {
     : "Bring AI Into Your Business",
 
   ctaText: isES
-    ? "Utiliza tecnología moderna para simplificar tus operaciones diarias y reducir tareas repetitivas. Estas herramientas también mejoran la experiencia del cliente, ayudando a tu negocio a mantenerse competitivo en un mercado en constante cambio. Además, son accesibles y fáciles de implementar."
-    : "With the right foundation in place, your technology can support advanced solutions such as AI-driven features, automation, and data-based applications. From image recognition and natural language processing to content generation and personalized user experiences.",
-
-  ctaText2: isES
-    ? "Utiliza tecnología moderna para simplificar tus operaciones diarias y reducir tareas repetitivas. Estas herramientas también mejoran la experiencia del cliente, ayudando a tu negocio a mantenerse competitivo en un mercado en constante cambio. Además, son accesibles y fáciles de implementar."
-    : "Even if you're new to AI, we help you understand how it works and how it applies to your business. Our goal is to keep you up to date with the latest technology in a practical and accessible way.",
+    ? "Con la base adecuada, tu tecnología puede soportar soluciones avanzadas como funciones impulsadas por IA, automatización y aplicaciones basadas en datos. Aunque no tengas experiencia con IA, te ayudamos a entender cómo funciona y cómo aplicarla a tu negocio de forma práctica y accesible."
+    : "With the right foundation in place, your technology can support advanced solutions such as AI-driven features, automation, and data-based applications. Even if you're new to AI, we help you understand how it applies to your business and keep you up to date with the latest technology in a practical and accessible way.",
   
   ctaButton: isES
     ? "AGENDA UNA CONSULTA"
@@ -33,7 +29,7 @@ const t = {
 };
 ---
 
-<Layout title={t.title}>
+<Layout tabTitle={isES ? "Servicios" : "Services"}>
 
 <!-- TITLE STRIP WITH IMAGE -->
 <section class="relative h-[180px] md:h-[180px] text-white flex items-end">
@@ -71,7 +67,9 @@ const t = {
 
     <div class="w-full md:max-w-[950px] px-2 md:px-0">
 
-      <div class="relative w-full overflow-hidden rounded-lg border-2"
+      <div class="relative w-full overflow-hidden rounded-lg border-2
+                  transition-all duration-300
+                  hover:shadow-[0_0_20px_rgba(0,0,0,0.25)]"
            style="border-color: var(--color-primary)">
 
         <img 
@@ -97,7 +95,7 @@ const t = {
       <!-- LEFT -->
       <div class="flex justify-center md:justify-start">
 
-        <div class="w-full h-[140px] md:h-auto overflow-hidden">
+        <div class="w-full h-[140px] md:h-[350px] overflow-hidden">
           <img 
             src="/images/service-cloud-2.png"
             class="w-full h-full object-cover"
@@ -113,12 +111,8 @@ const t = {
           {t.ctaTitle}
         </h2>
 
-        <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui text-left mb-4">
-          {t.ctaText}
-        </p>
-
         <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui text-left">
-          {t.ctaText2}
+          {t.ctaText}
         </p>
 
       </div>

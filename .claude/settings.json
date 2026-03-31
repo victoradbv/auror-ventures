@@ -1,0 +1,15 @@
+{
+  "model": "claude-sonnet-4-6",
+  "cleanupPeriodDays": 30,
+"permissions": {
+    "allow": [
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(npm run preview)",
+      "Bash(git status)",
+      "Bash(git diff*)",
+      "Bash(git log*)"
+    ],
+    "deny": []
+  }
+}

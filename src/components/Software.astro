@@ -20,12 +20,8 @@ const t = {
     : "Why Choose Us?",
 
   ctaText: isES
-    ? "Utiliza tecnología moderna para simplificar tus operaciones diarias y reducir tareas repetitivas. Estas herramientas también mejoran la experiencia del cliente, ayudando a tu negocio a mantenerse competitivo en un mercado en constante cambio. Además, son accesibles y fáciles de implementar."
-    : "With a strong track record of delivered projects, development is approached with clear structure and disciplined execution. This ensures each solution meets its requirements and performs as expected from the start.",
-
-  ctaText2: isES
-    ? "Utiliza tecnología moderna para simplificar tus operaciones diarias y reducir tareas repetitivas. Estas herramientas también mejoran la experiencia del cliente, ayudando a tu negocio a mantenerse competitivo en un mercado en constante cambio. Además, son accesibles y fáciles de implementar."
-    : "Our team brings experience across finance, banking, e-commerce, logistics, and education, working with companies operating at a global scale. This allows us to build solutions that fit real business environments and deliver consistent results.",
+    ? "Utilizamos una estructura clara y ejecución disciplinada para garantizar que cada solución cumpla sus requisitos desde el inicio. Nuestro equipo tiene experiencia en finanzas, banca, comercio electrónico, logística y educación, trabajando con empresas a escala global para entregar soluciones que se adaptan a entornos de negocio reales."
+    : "With a strong track record of delivered projects, development is approached with clear structure and disciplined execution. Our team brings experience across finance, banking, e-commerce, logistics, and education, working with companies at a global scale to deliver solutions that fit real business environments.",
   
   ctaButton: isES
     ? "AGENDA UNA CONSULTA"
@@ -33,7 +29,7 @@ const t = {
 };
 ---
 
-<Layout title={t.title}>
+<Layout tabTitle={isES ? "Servicios" : "Services"}>
 
 <!-- TITLE STRIP WITH IMAGE -->
 <section class="relative h-[180px] md:h-[180px] text-white flex items-end">
@@ -71,7 +67,9 @@ const t = {
 
     <div class="w-full md:max-w-[950px] px-2 md:px-0">
 
-      <div class="relative w-full overflow-hidden rounded-lg border-2"
+      <div class="relative w-full overflow-hidden rounded-lg border-2
+                  transition-all duration-300
+                  hover:shadow-[0_0_20px_rgba(0,0,0,0.25)]"
            style="border-color: var(--color-primary)">
 
         <img 
@@ -97,7 +95,7 @@ const t = {
       <!-- LEFT -->
       <div class="flex justify-center md:justify-start">
 
-        <div class="w-full h-[140px] md:h-auto overflow-hidden">
+        <div class="w-full h-[140px] md:h-[350px] overflow-hidden">
           <img 
             src="/images/service-software-2.jpg"
             class="w-full h-full object-cover"
@@ -113,12 +111,8 @@ const t = {
           {t.ctaTitle}
         </h2>
 
-        <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui text-left mb-4">
-          {t.ctaText}
-        </p>
-
         <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui text-left">
-          {t.ctaText2}
+          {t.ctaText}
         </p>
 
       </div>

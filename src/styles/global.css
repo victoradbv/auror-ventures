@@ -150,6 +150,31 @@ a {
   @apply bg-teal-600 text-white border-teal-600;
 }
 
+.btn-larger {
+  @apply inline-flex items-center justify-center font-semibold
+         text-[var(--color-primary)]
+         border-2 border-double border-[var(--color-primary)]
+         transition-all duration-300 ease-in-out;
+
+  font-family: 'Uni Neue', Arial, sans-serif;
+  font-size: 14px;        /* mobile font size */
+  letter-spacing: 0.6px;
+  padding: 10px 10px;     /* mobile padding */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .btn-larger {
+    font-size: 18px;      /* desktop font size */
+    padding: 16px 48px;   /* desktop padding */
+  }
+}
+
+.btn-larger:hover {
+  @apply bg-teal-600 text-white border-teal-600;
+}
+
 /* =========================
    CONTAINER
 ========================= */

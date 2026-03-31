@@ -1,10 +1,5 @@
-# Phase 1
+# Pending
 
--Projects
-
-# Phase 2
-
--favicon.svg
 -Text and translations
 -Responsive styling
 -Upload cloudflare

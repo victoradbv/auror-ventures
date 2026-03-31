@@ -1,0 +1,231 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const path = Astro.url.pathname;
+const isES = path.startsWith('/es');
+
+const t = {
+  title: isES ? "Nuestros Proyectos" : "Our Projects",
+};
+
+const categories = [
+  {
+    id: 'apps',
+    label: isES ? 'Aplicaciones' : 'Apps',
+    projects: [
+      {
+        title: isES ? "Monitor Mercado de Acciones" : "Equities Market Monitor",
+        images: ['1-1.png','1-2.png','1-3.jpg','1-4.jpg','1-5.jpg'].map(f => `/images/projects-apps/${f}`)
+      }
+    ]
+  },
+  {
+    id: 'websites',
+    label: isES ? 'Sitios Web' : 'Websites',
+    projects: [
+      {
+        title: "DigiPie Design",
+        images: ['1-1.png','1-2.png','1-3.png','1-4.png'].map(f => `/images/projects-websites/${f}`)
+      },
+      {
+        title: "Nightreign Sidekick",
+        images: ['2-1.png','2-2.png','2-3.png'].map(f => `/images/projects-websites/${f}`)
+      }
+    ]
+  },
+  {
+    id: 'mspowerapps',
+    label: 'MS Power Apps',
+    projects: [
+      {
+        title: isES ? "Predicción Financiera" : "Finance Forecasting",
+        images: ['1-1.jpg','1-2.jpg','1-3.jpg','1-4.jpg','1-5.jpg'].map(f => `/images/projects-mspowerapps/${f}`)
+      },
+      {
+        title: isES ? "Administración de Solicitudes" : "Requests Management",
+        images: ['2-1.jpg','2-2.jpg','2-3.jpg','2-4.jpg','2-5.jpg'].map(f => `/images/projects-mspowerapps/${f}`)
+      }
+    ]
+  }
+];
+---
+
+<Layout tabTitle={isES ? "Nuestros Proyectos" : "Our Projects"}>
+
+<!-- TITLE STRIP -->
+<section class="bg-[var(--color-primary)] py-6 text-white text-center">
+  <h1 class="text-[30px] md:text-[44px] font-heading">
+    {t.title}
+  </h1>
+</section>
+
+<!-- PROJECTS -->
+<section class="bg-white py-8 pb-16">
+  <div class="max-w-5xl mx-auto px-4">
+
+    <!-- CATEGORY BUTTONS -->
+    <div class="grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-4 mb-6">
+      {categories.map((cat, i) => (
+        <button
+          data-cat={cat.id}
+          class:list={['category-btn btn-larger', { 'is-active': i === 0 }]}
+        >
+          {cat.label}
+        </button>
+      ))}
+    </div>
+
+    <!-- CATEGORY PANELS -->
+    {categories.map((cat, ci) => (
+      <div
+        data-panel={cat.id}
+        class:list={['category-panel flex flex-col gap-14', { 'hidden': ci !== 0 }]}
+      >
+        {cat.projects.map((proj) => (
+          <div>
+
+            <!-- PROJECT TITLE -->
+            <h3
+              class="text-xl md:text-2xl font-heading text-center mb-4"
+              style="color: var(--color-primary)"
+            >
+              {proj.title}
+            </h3>
+
+            <!-- CAROUSEL -->
+            <div class="carousel" data-images={JSON.stringify(proj.images)}>
+
+              <!-- IMAGE + ARROWS -->
+              <!-- CAROUSEL FRAME -->
+              <!-- aspect-[16/9] controls the frame ratio — change to aspect-[4/3] or aspect-[1/1] to adjust -->
+              <!-- background-color: #f9fafb — shown behind image with object-contain -->
+              <!-- change object-contain → object-cover on the imgs below to fill the frame -->
+              <div
+                class="relative rounded-lg border-2 overflow-hidden w-full aspect-[16/9]"
+                style="border-color: var(--color-primary); background-color: #f9fafb;"
+              >
+                <!-- object-contain keeps full image visible; change to object-cover to fill frame -->
+                <img
+                  class="carousel-img w-full h-full object-contain"
+                  src={proj.images[0]}
+                  alt={proj.title}
+                />
+
+                <button
+                  class="prev-btn absolute left-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:opacity-90"
+                  style="background-color: rgba(255,255,255,0.88); color: var(--color-primary);"
+                  aria-label="Previous"
+                >
+                  <span style="font-size: 2.4rem; line-height: 1; display: block; margin-top: -2px;">‹</span>
+                </button>
+
+                <button
+                  class="next-btn absolute right-3 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:opacity-90"
+                  style="background-color: rgba(255,255,255,0.88); color: var(--color-primary);"
+                  aria-label="Next"
+                >
+                  <span style="font-size: 2.4rem; line-height: 1; display: block; margin-top: -2px;">›</span>
+                </button>
+              </div>
+
+              <!-- DOTS -->
+              <div class="dots flex justify-center gap-2 mt-3">
+                {proj.images.map((_, idx) => (
+                  <button
+                    class="dot w-2.5 h-2.5 rounded-full transition-all duration-200 cursor-pointer"
+                    style={idx === 0
+                      ? "background-color: var(--color-primary)"
+                      : "background-color: #d1d5db"}
+                    data-idx={idx}
+                    aria-label={`Slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+
+            </div>
+          </div>
+        ))}
+      </div>
+    ))}
+
+  </div>
+</section>
+
+</Layout>
+
+<style>
+  .category-btn.is-active {
+    background-color: rgb(13 148 136);
+    color: white;
+    border-color: rgb(13 148 136);
+  }
+</style>
+
+<script>
+  const DELAY = 6000;
+  let activeTimers: ReturnType<typeof setInterval>[] = [];
+
+  function clearTimers() {
+    activeTimers.forEach(id => clearInterval(id));
+    activeTimers = [];
+  }
+
+  function initCarousel(el: HTMLElement) {
+    const images: string[] = JSON.parse(el.dataset.images || '[]');
+    const img = el.querySelector('.carousel-img') as HTMLImageElement;
+    const prevBtn = el.querySelector('.prev-btn') as HTMLButtonElement;
+    const nextBtn = el.querySelector('.next-btn') as HTMLButtonElement;
+    const dots = Array.from(el.querySelectorAll('.dot')) as HTMLButtonElement[];
+    let current = 0;
+    let timer: ReturnType<typeof setInterval>;
+
+    if (images.length <= 1) {
+      prevBtn?.classList.add('hidden');
+      nextBtn?.classList.add('hidden');
+      return;
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => go(current + 1), DELAY);
+      activeTimers.push(timer);
+    }
+
+    function go(i: number) {
+      current = (i + images.length) % images.length;
+      img.src = images[current];
+      dots.forEach((d, di) => {
+        d.style.backgroundColor = di === current ? 'var(--color-primary)' : '#d1d5db';
+      });
+    }
+
+    prevBtn?.addEventListener('click', () => { go(current - 1); startTimer(); });
+    nextBtn?.addEventListener('click', () => { go(current + 1); startTimer(); });
+    dots.forEach((d, di) => d.addEventListener('click', () => { go(di); startTimer(); }));
+
+    startTimer();
+  }
+
+  function showPanel(id: string) {
+    clearTimers();
+
+    document.querySelectorAll<HTMLElement>('.category-panel').forEach(p => p.classList.add('hidden'));
+    document.querySelectorAll<HTMLElement>('.category-btn').forEach(b => b.classList.remove('is-active'));
+
+    const panel = document.querySelector<HTMLElement>(`[data-panel="${id}"]`);
+    const btn = document.querySelector<HTMLElement>(`[data-cat="${id}"]`);
+    if (!panel || !btn) return;
+
+    panel.classList.remove('hidden');
+    btn.classList.add('is-active');
+
+    panel.querySelectorAll<HTMLElement>('.carousel').forEach(initCarousel);
+  }
+
+  document.querySelectorAll<HTMLElement>('.category-btn').forEach(btn => {
+    btn.addEventListener('click', () => showPanel(btn.dataset.cat || ''));
+  });
+
+  // Init carousels in the first visible panel
+  document.querySelectorAll<HTMLElement>('.category-panel:not(.hidden) .carousel').forEach(initCarousel);
+</script>
