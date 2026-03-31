@@ -13,7 +13,46 @@ const t = {
 
   text: isES
     ? "Tanto si estás empezando a invertir como si ya tienes experiencia, nuestro objetivo es ayudarte a construir portafolios alineados con los principios fundamentales de inversión. Ofrecemos servicios educativos que te guían en todo el proceso, desde la apertura de una cuenta hasta el desarrollo de una estrategia clara de asignación de capital."
-    : "Whether you’re new to investing or have prior experience, our goal is to help you build portfolios that align with the core principles of investing. We offer educational services that guide you through the entire process—from setting up an account to developing a clear, strategic approach to capital allocation."
+    : "Whether you’re new to investing or have prior experience, our goal is to help you build portfolios that align with the core principles of investing. We offer educational services that guide you through the entire process—from setting up an account to developing a clear, strategic approach to capital allocation.",
+
+  ctaTitle: isES ? "El Tiempo es Dinero" : "Time Is Money",
+
+  ctaText: isES
+    ? "Concéntrate en lo que más importa mientras te ayudamos a estructurar tus decisiones financieras y sistemas. Nuestro enfoque está diseñado para ahorrarte tiempo, reducir la complejidad y mejorar los resultados a largo plazo."
+    : "Focus on what matters most while we help you structure your financial decisions and systems. Our approach is designed to save you time, reduce complexity, and improve long-term outcomes.",
+
+  ctaButton: isES ? "CONTÁCTANOS" : "CONTACT US",
+
+  essentialsTitle: isES ? "Los Fundamentos de la Inversión" : "The Essentials of Investing",
+
+  essentialsIntro: isES
+    ? "Invertir es clave para el éxito financiero a largo plazo. En Auror Ventures, te ayudamos a entender los principios fundamentales necesarios para hacer crecer tu patrimonio con éxito:"
+    : "Investing is key to long-term financial success. At Auror Ventures, we help you understand the fundamental principles needed to successfully grow your wealth:",
+
+  card1Title: isES ? "Valoración" : "Valuation",
+  card1Text: isES
+    ? "Como inversor, debes entender las razones detrás de los precios de tus activos. Con nuestra orientación, tu portafolio se construye sobre valor real en lugar de especulación. Esto es lo que diferencia invertir de especular."
+    : "As an investor, you must understand the reasons behind the prices of your assets. With our guidance, your portfolio is built on real value rather than speculation. This is what separates investing from trading.",
+
+  card2Title: isES ? "Horizonte Temporal" : "Time Horizon",
+  card2Text: isES
+    ? "Invertir no es un atajo hacia ganancias rápidas. A corto plazo, los mercados son impredecibles, como lanzar una moneda. A largo plazo, las tendencias históricas nos permiten estimar mejor los resultados futuros."
+    : "Investing is not a shortcut to quick profits. In the short term, markets are unpredictable, much like a coin flip. Over longer periods, historical trends allow us to better estimate future outcomes.",
+
+  card3Title: isES ? "Diversificación" : "Diversification",
+  card3Text: isES
+    ? "Nuestras estrategias reducen el riesgo distribuyendo las inversiones entre múltiples activos. En lugar de depender de una sola posición, un portafolio diversificado reparte el riesgo entre cientos o incluso miles de activos."
+    : "Our strategies reduce risk by spreading investments across multiple assets. Instead of relying on a single position, a diversified portfolio distributes risk across hundreds or even thousands of assets.",
+
+  scheduleBtn: isES ? "AGENDA UNA CONSULTA" : "SCHEDULE A CONSULTATION",
+
+  disclaimer1: isES
+    ? "* El S&P 500 se utiliza ampliamente como referencia porque representa el rendimiento del mercado bursátil de EE. UU."
+    : "* The S&P 500 is widely used as a benchmark because it represents the performance of the U.S. stock market.",
+
+  disclaimer2: isES
+    ? "** El rendimiento pasado no es indicativo de resultados futuros."
+    : "** Past performance is not indicative of future results.",
 };
 ---
 
@@ -73,8 +112,8 @@ const t = {
       <div class="mx-auto w-[92%] md:w-[98%]">
 
         <div class="flex flex-col gap-1.5 leading-[1.6]">
-          <p>* The S&amp;P 500 is widely used as a benchmark because it represents the performance of the U.S. stock market.</p>
-          <p>** Past performance is not indicative of future results.</p>
+          <p>{t.disclaimer1}</p>
+          <p>{t.disclaimer2}</p>
         </div>
 
       </div>
@@ -94,17 +133,16 @@ const t = {
     <div class="text-white text-center md:text-center">
 
       <h2 class="text-[26px] md:text-[40px] font-heading mb-2">
-        Time Is Money
+        {t.ctaTitle}
       </h2>
 
       <p class="text-[15px] md:text-[18px] leading-[1.6] font-ui mb-6 text-white/90">
-        Focus on what matters most while we help you structure your financial decisions and systems. 
-        Our approach is designed to save you time, reduce complexity, and improve long-term outcomes.
+        {t.ctaText}
       </p>
 
       <div class="flex justify-center md:justify-center">
         <a href=`${base}/contact` class="btn-primary bg-white text-[var(--color-primary)] border-white hover:bg-white/90 mb-4">
-          CONTACT US
+          {t.ctaButton}
         </a>
       </div>
 
@@ -131,12 +169,12 @@ const t = {
 
     <!-- TITLE -->
     <h2 class="text-[26px] md:text-[40px] font-heading mb-2">
-      The Essentials of Investing
+      {t.essentialsTitle}
     </h2>
 
     <!-- PARAGRAPH -->
     <p class="text-[15px] md:text-[18px] text-gray-800 leading-[1.7] font-ui max-w-3xl mx-auto mb-6">
-      Investing is key to long-term financial success. At Auror Ventures, we help you understand the fundamental principles needed to successfully grow your wealth:
+      {t.essentialsIntro}
     </p>
 
     <!-- CARDS -->
@@ -148,41 +186,41 @@ const t = {
                   hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]">
 
         <h3 class="font-heading text-lg md:text-2xl mb-3 text-[var(--color-primary)]">
-          Valuation
+          {t.card1Title}
         </h3>
 
         <p class="text-sm md:text-base text-black leading-[1.7] font-ui">
-          As an investor, you must understand the reasons behind the prices of your assets. With our guidance, your portfolio is built on real value rather than speculation. This is what separates investing from trading.
+          {t.card1Text}
         </p>
 
       </div>
 
       <!-- CARD 2 -->
-      <div class="bg-gray-100 rounded-lg p-8 
+      <div class="bg-gray-100 rounded-lg p-8
                   transition-all duration-300 transform
                   hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]">
 
         <h3 class="font-heading text-lg md:text-2xl mb-3 text-[var(--color-primary)]">
-          Time Horizon
+          {t.card2Title}
         </h3>
 
         <p class="text-sm md:text-base text-black leading-[1.7] font-ui">
-          Investing is not a shortcut to quick profits. In the short term, markets are unpredictable, much like a coin flip. Over longer periods, historical trends allow us to better estimate future outcomes.
+          {t.card2Text}
         </p>
 
       </div>
 
       <!-- CARD 3 -->
-      <div class="bg-gray-100 rounded-lg p-8 
+      <div class="bg-gray-100 rounded-lg p-8
                   transition-all duration-300 transform
                   hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(0,0,0,0.15)]">
 
         <h3 class="font-heading text-lg md:text-2xl mb-3 text-[var(--color-primary)]">
-          Diversification
+          {t.card3Title}
         </h3>
 
         <p class="text-sm md:text-base text-black leading-[1.7] font-ui">
-          Our strategies reduce risk by spreading investments across multiple assets. Instead of relying on a single position, a diversified portfolio distributes risk across hundreds or even thousands of assets.
+          {t.card3Text}
         </p>
 
       </div>
@@ -192,7 +230,7 @@ const t = {
     <!-- BUTTON -->
     <div class="mt-8 mb-4 flex justify-center">
       <a href=`${base}/contact` class="btn-primary">
-        SCHEDULE A CONSULTATION
+        {t.scheduleBtn}
       </a>
     </div>
 
