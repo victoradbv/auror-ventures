@@ -3,17 +3,34 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 
-const { tabTitle } = Astro.props;
+const { tabTitle, description } = Astro.props;
+
+const isES = Astro.url.pathname.startsWith('/es');
+const lang = isES ? 'es' : 'en';
+
+const pageTitle = tabTitle ? `${tabTitle} | Auror Ventures` : "Auror Ventures";
+const pageDescription = description ?? (isES
+  ? "Auror Ventures impulsa el crecimiento de negocios e inversores con soluciones de finanzas y tecnología."
+  : "Auror Ventures empowers businesses and investors to grow through tailored finance and technology solutions.");
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>{tabTitle ? `${tabTitle} | Auror Ventures` : "Auror Ventures"}</title>
-    <meta name="description" content="Empowering growth through finance and technology." />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Auror Ventures" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
 
     <!-- Favicons -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -24,13 +41,13 @@ const { tabTitle } = Astro.props;
     <link rel="manifest" href="/site.webmanifest" />
   </head>
 
-  <body class="relative">
+  <body class="relative flex flex-col min-h-screen">
 
     <!-- Header -->
     <Header />
 
     <!-- Page Content -->
-    <main>
+    <main class="flex-1 flex flex-col">
       <slot />
     </main>
 

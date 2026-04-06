@@ -4,6 +4,10 @@ import Layout from "../layouts/Layout.astro";
 const path = Astro.url.pathname;
 const isES = path.startsWith('/es');
 
+const description = isES
+  ? "Explora proyectos reales de Auror Ventures: aplicaciones, sitios web y herramientas de negocio."
+  : "Explore real projects built by Auror Ventures — apps, websites, and business tools.";
+
 const t = {
   title: isES ? "Nuestros Proyectos" : "Our Projects",
 };
@@ -50,7 +54,7 @@ const categories = [
 ];
 ---
 
-<Layout tabTitle={isES ? "Nuestros Proyectos" : "Our Projects"}>
+<Layout tabTitle={isES ? "Nuestros Proyectos" : "Our Projects"} description={description}>
 
 <!-- TITLE STRIP -->
 <section class="bg-[var(--color-primary)] py-6 text-white text-center">
@@ -162,14 +166,6 @@ const categories = [
 </style>
 
 <script>
-  const DELAY = 6000;
-  let activeTimers: ReturnType<typeof setInterval>[] = [];
-
-  function clearTimers() {
-    activeTimers.forEach(id => clearInterval(id));
-    activeTimers = [];
-  }
-
   function initCarousel(el: HTMLElement) {
     const images: string[] = JSON.parse(el.dataset.images || '[]');
     const img = el.querySelector('.carousel-img') as HTMLImageElement;
@@ -177,18 +173,11 @@ const categories = [
     const nextBtn = el.querySelector('.next-btn') as HTMLButtonElement;
     const dots = Array.from(el.querySelectorAll('.dot')) as HTMLButtonElement[];
     let current = 0;
-    let timer: ReturnType<typeof setInterval>;
 
     if (images.length <= 1) {
       prevBtn?.classList.add('hidden');
       nextBtn?.classList.add('hidden');
       return;
-    }
-
-    function startTimer() {
-      clearInterval(timer);
-      timer = setInterval(() => go(current + 1), DELAY);
-      activeTimers.push(timer);
     }
 
     function go(i: number) {
@@ -199,15 +188,12 @@ const categories = [
       });
     }
 
-    prevBtn?.addEventListener('click', () => { go(current - 1); startTimer(); });
-    nextBtn?.addEventListener('click', () => { go(current + 1); startTimer(); });
-    dots.forEach((d, di) => d.addEventListener('click', () => { go(di); startTimer(); }));
-
-    startTimer();
+    prevBtn?.addEventListener('click', () => go(current - 1));
+    nextBtn?.addEventListener('click', () => go(current + 1));
+    dots.forEach((d, di) => d.addEventListener('click', () => go(di)));
   }
 
   function showPanel(id: string) {
-    clearTimers();
 
     document.querySelectorAll<HTMLElement>('.category-panel').forEach(p => p.classList.add('hidden'));
     document.querySelectorAll<HTMLElement>('.category-btn').forEach(b => b.classList.remove('is-active'));

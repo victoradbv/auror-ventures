@@ -4,6 +4,10 @@ import Layout from "../layouts/Layout.astro";
 const path = Astro.url.pathname;
 const isES = path.startsWith('/es');
 
+const description = isES
+  ? "Ponte en contacto con Auror Ventures. Cuéntanos tu proyecto y te ayudamos a hacerlo realidad."
+  : "Get in touch with Auror Ventures. Tell us about your project and we'll help you make it happen.";
+
 const t = {
   title: isES ? "Contacto" : "Contact Us",
 
@@ -18,7 +22,7 @@ const t = {
 };
 ---
 
-<Layout tabTitle={isES ? "Contacto" : "Contact"}>
+<Layout tabTitle={isES ? "Contacto" : "Contact"} description={description}>
 
 <!-- TITLE -->
 <section class="bg-[var(--color-primary)] py-6 text-white text-center">

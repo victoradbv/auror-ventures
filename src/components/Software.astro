@@ -6,6 +6,10 @@ const isES = path.startsWith('/es');
 
 const base = isES ? '/es' : '/en';
 
+const description = isES
+  ? "Convertimos tu idea en una aplicación, sitio web o solución de software completamente funcional y lista para escalar."
+  : "We turn your idea into a fully functional app, website, or software solution built to scale.";
+
 const t = {
   title: isES ? "Desarrollo de Software y Aplicaciones" : "Software & Application Development",
 
@@ -29,7 +33,7 @@ const t = {
 };
 ---
 
-<Layout tabTitle={isES ? "Servicios" : "Services"}>
+<Layout tabTitle={isES ? "Servicios" : "Services"} description={description}>
 
 <!-- TITLE STRIP WITH IMAGE -->
 <section class="relative h-[180px] md:h-[180px] text-white flex items-end">

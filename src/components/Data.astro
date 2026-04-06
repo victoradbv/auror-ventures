@@ -6,6 +6,10 @@ const isES = path.startsWith('/es');
 
 const base = isES ? '/es' : '/en';
 
+const description = isES
+  ? "Organiza los datos de tu negocio y automatiza procesos repetitivos para tomar mejores decisiones más rápido."
+  : "Organize your business data and automate repetitive processes to make better decisions faster.";
+
 const t = {
   title: isES ? "Datos y Automatización" : "Data & Automations",
 
@@ -29,7 +33,7 @@ const t = {
 };
 ---
 
-<Layout tabTitle={isES ? "Servicios" : "Services"}>
+<Layout tabTitle={isES ? "Servicios" : "Services"} description={description}>
 
 <!-- TITLE STRIP WITH IMAGE -->
 <section class="relative h-[180px] md:h-[180px] text-white flex items-end">

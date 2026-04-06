@@ -6,6 +6,10 @@ const isES = path.startsWith('/es');
 
 const base = isES ? '/es' : '/en';
 
+const description = isES
+  ? "Moderniza los sistemas de tu negocio con infraestructura cloud segura y escalable. La base para integrar IA y crecer."
+  : "Modernize your business systems with secure, scalable cloud infrastructure — the foundation for AI and growth.";
+
 const t = {
   title: isES ? "Infraestructura Cloud" : "Cloud Infrastructure",
 
@@ -29,7 +33,7 @@ const t = {
 };
 ---
 
-<Layout tabTitle={isES ? "Servicios" : "Services"}>
+<Layout tabTitle={isES ? "Servicios" : "Services"} description={description}>
 
 <!-- TITLE STRIP WITH IMAGE -->
 <section class="relative h-[180px] md:h-[180px] text-white flex items-end">

@@ -6,6 +6,10 @@ const isES = path.startsWith('/es');
 
 const base = isES ? '/es' : '/en';
 
+const description = isES
+  ? "Explora los servicios financieros de Auror Ventures: gestión de portafolios, automatización de datos y asignación de capital inteligente."
+  : "Explore Auror Ventures' finance services — portfolio management, data automation, and smarter capital allocation.";
+
 const t = {
   title: isES ? "Soluciones Financieras" : "Finance Solutions",
 
@@ -30,7 +34,7 @@ const t = {
 };
 ---
 
-<Layout tabTitle={isES ? "Servicios" : "Services"}>
+<Layout tabTitle={isES ? "Servicios" : "Services"} description={description}>
 
 <!-- TITLE STRIP -->
 <section class="bg-[var(--color-primary)] py-6 text-white text-center">
@@ -40,7 +44,7 @@ const t = {
 </section>
 
 <!-- SERVICES -->
-<section class="bg-white py-16">
+<section class="bg-white py-16 flex-1 flex items-center">
 
   <div class="max-w-5xl mx-auto px-6">
 
