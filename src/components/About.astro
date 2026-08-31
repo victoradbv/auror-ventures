@@ -43,7 +43,8 @@ const team = [
       ? "Crea experiencias digitales inmersivas, dando vida a ideas a través de un diseño virtual cuidado y detallado."
       : "Creates immersive digital experiences, bringing ideas to life through refined virtual design.",
     img: "/images/team-3.jpg",
-    linkedin: "https://www.linkedin.com/in/iryna-gural-27a289210/"
+    linkedin: "https://www.linkedin.com/in/iryna-gural-27a289210/",
+    hidden: true
   },
   {
     name: "Lens",
@@ -51,7 +52,8 @@ const team = [
       ? "Transforma datos en información clara, mejorando procesos de reporte y apoyando decisiones más inteligentes."
       : "Transforms data into clear insights, improving financial reporting and decision-making.",
     img: "/images/team-4.jpg",
-    linkedin: "https://www.linkedin.com/in/lens-maldonado-1ba5141a3/"
+    linkedin: "https://www.linkedin.com/in/lens-maldonado-1ba5141a3/",
+    hidden: true
   }
 ];
 ---
@@ -80,7 +82,7 @@ const team = [
 
     <div class="grid md:grid-cols-2 gap-8">
 
-      {team.map(member => (
+      {team.filter(member => !member.hidden).map(member => (
 
         <div class="bg-[var(--color-primary)] text-white rounded-lg p-6 flex gap-4">
 
