@@ -10,8 +10,12 @@ const t = isES
   ? {
       services: "Servicios",
       company: "Empresa",
-      finance: "Soluciones Financieras",
       software: "Software & Cloud",
+      dev: "Desarrollo de Software y Aplicaciones",
+      cloud: "Infraestructura Cloud",
+      bigData: "Soluciones de Big Data",
+      data: "Analítica de Datos y Automatización",
+      financial: "Software Financiero y de Inversión",
       about: "Sobre Nosotros",
       contact: "Contacto",
       legal: "Legal",
@@ -19,12 +23,35 @@ const t = isES
   : {
       services: "Services",
       company: "Company",
-      finance: "Finance Solutions",
       software: "Software & Cloud",
+      dev: "Software & Application Development",
+      cloud: "Cloud Infrastructure",
+      bigData: "Big Data Solutions",
+      data: "Data Analytics & Automation",
+      financial: "Financial & Investment Software",
       about: "About Us",
       contact: "Contact",
       legal: "Legal",
     };
+
+const serviceGroups = [
+  {
+    title: t.software,
+    link: `${base}/software-cloud`,
+    items: [
+      { title: t.dev, link: `${base}/software-development` },
+      { title: t.cloud, link: `${base}/cloud-infrastructure` },
+    ],
+  },
+  {
+    title: t.bigData,
+    link: `${base}/finance-solutions`,
+    items: [
+      { title: t.data, link: `${base}/data-automations` },
+      { title: t.financial, link: `${base}/asset-management` },
+    ],
+  },
+];
 ---
 
 <footer 
@@ -33,9 +60,9 @@ const t = isES
 >
 
   <!-- Main Content -->
-  <div class="container-custom h-auto md:h-[130px] py-6 md:py-1 flex items-center">
+  <div class="container-custom h-auto lg:h-[130px] py-6 lg:py-1 flex items-center">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start md:items-center w-full">
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 items-start md:items-center w-full">
 
       <!-- Logo -->
       <div class="flex justify-start">
@@ -47,7 +74,7 @@ const t = isES
       </div>
 
       <!-- Services + Company wrapper -->
-      <div class="grid grid-cols-2 gap-10 md:contents">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-10 md:contents">
 
         <!-- Services -->
         <div>
@@ -55,23 +82,28 @@ const t = isES
             {t.services}
           </h3>
 
-          <ul class="space-y-2 font-ui text-sm text-muted-light leading-tight">
-            <li>
-              <a href={`${base}/finance-solutions`} class="hover:text-white whitespace-nowrap">
-                {t.finance}
-              </a>
-            </li>
-            <li>
-              <a href={`${base}/software-cloud`} class="hover:text-white whitespace-nowrap">
-                {t.software}
-              </a>
-            </li>
-            <li class="hidden md:block opacity-0 select-none">Placeholder</li>
-          </ul>
+          <div class="flex flex-col lg:flex-row gap-4 lg:gap-10">
+            {serviceGroups.map(group => (
+              <ul class="space-y-2 font-ui text-sm text-muted-light leading-tight">
+                <li>
+                  <a href={group.link} class="text-xs font-bold uppercase tracking-wider text-white hover:text-white/70 whitespace-nowrap">
+                    {group.title}
+                  </a>
+                </li>
+                {group.items.map(item => (
+                  <li>
+                    <a href={item.link} class="hover:text-white whitespace-nowrap">
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
         </div>
 
         <!-- Company -->
-        <div>
+        <div class="md:justify-self-end">
           <h3 class="mb-3 font-heading text-base text-white">
             {t.company}
           </h3>

@@ -7,28 +7,28 @@ const isES = path.startsWith('/es');
 const base = isES ? '/es' : '/en';
 
 const description = isES
-  ? "Explora los servicios financieros de Auror Ventures: gestión de portafolios, automatización de datos y asignación de capital inteligente."
-  : "Explore Auror Ventures' finance services — portfolio management, data automation, and smarter capital allocation.";
+  ? "Explora las soluciones de Big Data de Auror Ventures: analítica de datos, automatización y software financiero y de inversión."
+  : "Explore Auror Ventures' Big Data solutions: data analytics, automation, and financial & investment software.";
 
 const t = {
-  title: isES ? "Soluciones Financieras" : "Finance Solutions",
+  title: isES ? "Soluciones de Big Data" : "Big Data Solutions",
 
   services: [
     {
-      title: isES ? "Gestión de Portafolios" : "Asset & Portfolio Management",
-      text: isES
-        ? "¿Quieres empezar a invertir o reducir el tiempo y esfuerzo de gestionar tus inversiones? Nuestro enfoque te ayuda a entender la asignación de capital mientras implementas soluciones modernas."
-        : "Want to start investing or reduce the time and effort it takes to manage your investments? Our approach helps you understand capital allocation while implementing modern solutions.",
-      img: "/images/service-1-1.png",
-      link: `${base}/asset-management`
-    },
-    {
-      title: isES ? "Datos y Automatización" : "Data & Automations",
+      title: isES ? "Analítica de Datos y Automatización" : "Data Analytics & Automation",
       text: isES
         ? "Muchas empresas generan datos valiosos pero no cuentan con sistemas para gestionarlos. Te ayudamos a implementar herramientas que organizan la información y mejoran la toma de decisiones."
         : "Most businesses generate valuable data but lack the systems to manage it. We help you implement tools that organize your data and support better decision-making.",
       img: "/images/service-1-2.png",
       link: `${base}/data-automations`
+    },
+    {
+      title: isES ? "Software Financiero y de Inversión" : "Financial & Investment Software",
+      text: isES
+        ? "¿Quieres empezar a invertir o reducir el tiempo y esfuerzo de gestionar tus inversiones? Nuestro enfoque te ayuda a entender la asignación de capital mientras implementas soluciones modernas."
+        : "Want to start investing or reduce the time and effort it takes to manage your investments? Our approach helps you understand capital allocation while implementing modern solutions.",
+      img: "/images/service-1-1.png",
+      link: `${base}/asset-management`
     }
   ]
 };

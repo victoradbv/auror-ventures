@@ -16,36 +16,20 @@ const t = {
     : "Empowering Growth Through Finance and Technology",
 
   introText: isES
-    ? "Nuestra empresa ayuda a negocios e inversores a alcanzar nuevos niveles de eficiencia, rentabilidad y crecimiento. Nos especializamos en implementar soluciones digitales a medida que permiten tomar decisiones más informadas basadas en datos. A través de formación y soporte continuo, nuestros clientes adquieren las herramientas necesarias para integrar sistemas avanzados de forma sencilla, liberando tiempo valioso para centrarse en sus actividades principales generadoras de ingresos."
-    : "Our company empowers businesses and investors to unlock new levels of efficiency, profitability, and growth. We specialize in implementing tailored digital solutions that help organizations make more informed, data-driven decisions. Through education and ongoing support, our clients gain the expertise needed to seamlessly integrate advanced systems, freeing up valuable time to focus on their core income-generating activities.",
+    ? "Nuestra empresa ayuda a negocios e inversores a alcanzar nuevos niveles de eficiencia, rentabilidad y crecimiento. Nos especializamos en implementar soluciones digitales a medida que permiten tomar decisiones más informadas basadas en datos. A través de un soporte continuo, nuestros clientes adquieren las herramientas necesarias para integrar sistemas avanzados de forma sencilla, liberando tiempo valioso para centrarse en sus actividades principales generadoras de ingresos."
+    : "Our company empowers businesses and investors to unlock new levels of efficiency, profitability, and growth. We specialize in implementing tailored digital solutions that help organizations make more informed, data-driven decisions. Through ongoing support, our clients gain the expertise needed to seamlessly integrate advanced systems, freeing up valuable time to focus on their core income-generating activities.",
 
   servicesTitle: isES ? "Nuestros Servicios" : "Our Services",
 
   connectTitle: isES ? "Conecta con nosotros" : "Connect With Us",
   connectSubtitle: isES
-    ? "Empecemos una conversación sobre cómo construir un futuro financiero más sólido."
-    : "Let’s start a conversation about building a stronger financial future.",
+    ? "Empecemos una conversación sobre cómo construir el software que tu negocio necesita para crecer."
+    : "Let’s start a conversation about building the software your business needs to grow.",
   btnTeam: isES ? "CONOCE AL EQUIPO" : "MEET OUR TEAM",
   btnContact: isES ? "CONTÁCTANOS" : "CONTACT US",
 };
 
 const services = [
-  {
-    title: isES ? "Gestión de Activos y Portafolios" : "Asset & Portfolio Management",
-    text: isES
-      ? "Te mostramos qué funciona, qué no y dónde mejorar para que tu capital rinda más con menos riesgo."
-      : "Our goal is to provide tools that simplify the process of investing while minimizing risk.",
-    img: "/images/service-1.jpg",
-    link: `${base}/asset-management`
-  },
-  {
-    title: isES ? "Big Data y Automatización" : "Data & Automations",
-    text: isES
-      ? "Aprovecha las últimas tecnologías para reducir el tiempo y los errores en tareas manuales repetitivas."
-      : "Take advantage of the latest technologies, reduce the time and errors involved in manual tasks.",
-    img: "/images/service-3.jpg",
-    link: `${base}/data-automations`
-  },
   {
     title: isES ? "Desarrollo de Software y Aplicaciones" : "Software & Application Development",
     text: isES
@@ -61,6 +45,22 @@ const services = [
       : "Modernize your systems to improve security and performance, allowing to integrate AI solutions.",
     img: "/images/service-4.png",
     link: `${base}/cloud-infrastructure`
+  },
+  {
+    title: isES ? "Analítica de Datos y Automatización" : "Data Analytics & Automation",
+    text: isES
+      ? "Aprovecha las últimas tecnologías para reducir el tiempo y los errores en tareas manuales repetitivas."
+      : "Take advantage of the latest technologies, reduce the time and errors involved in manual tasks.",
+    img: "/images/service-3.jpg",
+    link: `${base}/data-automations`
+  },
+  {
+    title: isES ? "Software Financiero y de Inversión" : "Financial & Investment Software",
+    text: isES
+      ? "Te mostramos qué funciona, qué no y dónde mejorar para que tu capital rinda más con menos riesgo."
+      : "Our goal is to provide tools that simplify the process of investing while minimizing risk.",
+    img: "/images/service-1.jpg",
+    link: `${base}/asset-management`
   }
 ];
 ---
