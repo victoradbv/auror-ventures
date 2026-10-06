@@ -44,7 +44,9 @@ Both directories mirror the same page structure. Each page imports components di
 
 ### Static Assets
 
-All images and fonts are in `public/` and served as-is. No image optimization pipeline is configured.
+Most images and fonts are in `public/` and served as-is.
+
+Project gallery images are the exception: they live in `src/assets/projects/<folder>/` and go through Astro's image pipeline (`astro:assets`: WebP output, responsive sizes). To add a project, drop its images in a folder there and add an entry to `categories` in `src/components/Projects.astro`. `src/lib/collage.ts` arranges each project's images into a collage based on their aspect ratios (no cropping), and clicking a tile opens a lightbox. When replacing a project image, give the new file a new name: the dev server caches optimized images in the browser for a year by URL, so a same-name replacement keeps showing the old image locally (production builds hash file contents, so they are unaffected).
 
 ## Active Development Areas (TODO.md)
 

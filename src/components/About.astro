@@ -18,7 +18,15 @@ const t = {
     : "Our team has a proven track record of success within business of a variety of industries. With experience living in different countries and working with global teams, we bring valuable insights that drive business success. Our goal is to provide practical advice and support, helping businesses thrive at every stage of growth.",
 
   btn: isES ? "AGENDA UNA CONSULTA" : "SCHEDULE A CONSULTATION",
+
+  experience: isES ? "Respaldados por experiencia" : "Backed by experience",
 };
+
+const stats = [
+  { value: "5+", label: isES ? "años construyendo software" : "years building software" },
+  { value: "500+", label: isES ? "usuarios cada día" : "users every day" },
+  { value: "10+", label: isES ? "aplicaciones web y móviles" : "web and mobile apps" },
+];
 
 const team = [
   {
@@ -73,6 +81,33 @@ const team = [
     <p class="font-body text-[16px] md:text-[18px] font-medium leading-[1.85] tracking-[0.6px] text-gray-800">
       {t.intro}
     </p>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="bg-white pb-12">
+  <div class="max-w-4xl mx-auto px-6">
+
+    <div class="gradient-drift rounded-lg px-5 py-7 md:px-8 md:py-9 text-white shadow-lg">
+      <h2 class="text-center font-heading text-[26px] md:text-[32px]">
+        {t.experience}
+      </h2>
+
+      <!-- Figures split by hairlines; on phones each sits beside its label -->
+      <div class="mt-6 grid divide-y divide-white/20 overflow-hidden rounded-md border border-white/20 bg-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        {stats.map(stat => (
+          <div class="flex items-center gap-4 px-5 py-4 sm:block sm:px-6 sm:py-5 sm:text-center">
+            <span class="block w-20 shrink-0 font-heading text-3xl font-bold sm:w-auto sm:text-4xl">
+              {stat.value}
+            </span>
+            <span class="block font-ui text-xs font-medium uppercase tracking-wider text-white/75 sm:mt-2">
+              {stat.label}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -155,3 +190,30 @@ const team = [
 </section>
 
 </Layout>
+
+<style>
+  /* The experience panel's gradient slowly sweeps a lighter band across and
+     back. The ramp is symmetric (dark, brand, accent, brand, dark) so panning
+     it moves a highlight instead of just lightening one edge. */
+  @keyframes gradient-drift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .gradient-drift {
+    background-image: linear-gradient(
+      115deg,
+      var(--color-primary-dark) 0%,
+      var(--color-primary) 22%,
+      var(--color-primary-accent) 50%,
+      var(--color-primary) 78%,
+      var(--color-primary-dark) 100%
+    );
+    background-size: 260% 260%;
+    animation: gradient-drift 12s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gradient-drift { animation: none; }
+  }
+</style>

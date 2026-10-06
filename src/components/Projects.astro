@@ -1,29 +1,95 @@
 ---
+import { Image, getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import Layout from "../layouts/Layout.astro";
+import { buildCollage, buildRows } from "../lib/collage";
 
 const path = Astro.url.pathname;
 const isES = path.startsWith('/es');
 
 const description = isES
-  ? "Explora proyectos reales de Auror Ventures: aplicaciones, sitios web y herramientas de negocio."
-  : "Explore real projects built by Auror Ventures — apps, websites, and business tools.";
+  ? "Casos de éxito de Auror Ventures: quioscos de fotos con IA, una plataforma de reservas, herramientas de análisis de inversiones, sitios web y aplicaciones de negocio con Power Apps."
+  : "Success stories from Auror Ventures: AI photo kiosks, a booking platform for spaces, investment research tools, websites and Power Apps business apps.";
 
 const t = {
-  title: isES ? "Nuestros Proyectos" : "Our Projects",
+  title: isES ? "Casos de Éxito" : "Success Stories",
+  image: isES ? "imagen" : "image",
+  visit: isES ? "Visitar" : "Visit",
+  close: isES ? "Cerrar" : "Close",
+  prev: isES ? "Anterior" : "Previous",
+  next: isES ? "Siguiente" : "Next",
 };
 
-const categories = [
+// Project images live in src/assets/projects/<folder>/ so Astro can read
+// their sizes and serve optimized versions
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+  "../assets/projects/**/*.{jpg,jpeg,png,webp}",
+  { eager: true }
+);
+
+// An image is a file name, or { file, ratio, focus } to trim its collage
+// tile to that shape, keeping the `focus` area in view (CSS object-position).
+// The lightbox always shows the full image.
+type ImageEntry = string | { file: string; ratio?: number; focus?: string };
+
+const projectImages = (folder: string, entries: ImageEntry[]) =>
+  entries.map(entry => {
+    const { file, ratio, focus }: Exclude<ImageEntry, string> = typeof entry === 'string' ? { file: entry } : entry;
+    const mod = imageFiles[`../assets/projects/${folder}/${file}`];
+    if (!mod) throw new Error(`Missing project image: ${folder}/${file}`);
+    return { meta: mod.default, ratio: ratio ?? mod.default.width / mod.default.height, focus };
+  });
+
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  url?: string; // live site, shown as a link next to the title
+  images: ReturnType<typeof projectImages>;
+  // Optional fixed collage: rows of image indexes, each row one height.
+  // Without it the layout is found automatically.
+  layout?: { desktop: number[][]; mobile: number[][] };
+}
+
+const categories: { id: string; label: string; projects: Project[] }[] = [
   {
     id: 'apps',
     label: 'Software',
     projects: [
       {
         title: isES ? "Sistema Fotomatón" : "Photobooth System",
-        images: ['1-1.jpg','1-2.jpg','1-3.jpg','1-4.png'].map(f => `/images/projects-apps/${f}`)
+        description: isES
+          ? "Quioscos de fotos de autoservicio para museos y atracciones, con eliminación de fondo mediante IA. Los visitantes escanean su código QR, pagan con tarjeta e imprimen su foto al momento, en su propio idioma."
+          : "Self-service photo kiosks for museums and attractions, powered by AI background removal. Visitors scan their QR code, pay by card and print their photo on the spot, in their own language.",
+        tags: isES
+          ? ["Eliminación de Fondo con IA", "Software de Quiosco", "Códigos QR", "Pagos con Tarjeta"]
+          : ["AI Background Removal", "Kiosk Software", "QR Codes", "Card Payments"],
+        images: projectImages('apps', ['1-1.jpg', '1-2.jpg', { file: '1-3.jpg', ratio: 3 / 4 }, '1-4.png']),
+        layout: { desktop: [[0, 1, 2, 3]], mobile: [[0, 1, 2], [3]] }
+      },
+      {
+        title: "Tuora",
+        description: isES
+          ? "Una plataforma de reservas para negocios que alquilan espacios, como estudios de música, clubes deportivos y coworkings. Cada uno tiene su propia página de reservas con pagos con tarjeta y un panel para calendarios, precios y promociones."
+          : "A booking platform for businesses that rent out spaces, like music studios, sports clubs and coworkings. Each gets its own booking page with live availability and card payments, plus a back office for calendars, pricing and promotions.",
+        tags: isES
+          ? ["Plataforma SaaS", "Reservas Online", "Pagos con Stripe", "Multisede"]
+          : ["SaaS Platform", "Online Booking", "Stripe Payments", "Multi-location"],
+        url: "https://tuora.io",
+        // Landing page, a business's spaces, a booking and the space editor, in the page's language
+        images: projectImages('apps', ['home', 'spaces', 'booking', 'editor'].map(n => `tuora-${n}${isES ? '-es' : ''}.webp`)),
+        layout: { desktop: [[0, 1], [2, 3]], mobile: [[0, 1], [2, 3]] }
       },
       {
         title: isES ? "Monitor Mercado de Acciones" : "Equities Market Monitor",
-        images: ['2-1.png','2-3.jpg','2-4.jpg','2-5.jpg'].map(f => `/images/projects-apps/${f}`)
+        description: isES
+          ? "Una plataforma de análisis de inversiones que reúne resultados, ratios financieros, indicadores económicos y estimaciones de mercado. Sus paneles comparan cada empresa con su sector y estiman su valor razonable con valoraciones DCF."
+          : "An investment research platform that brings earnings, financial ratios, economic indicators and market estimates into one place. Its dashboards compare each company against its industry and run discounted cash flow (DCF) valuations to estimate fair value.",
+        tags: isES
+          ? ["Integración de Datos", "Modelado Financiero", "Paneles", "Valoración DCF"]
+          : ["Data Integration", "Financial Modeling", "Dashboards", "DCF Valuation"],
+        images: projectImages('apps', ['2-1.png', '2-3.jpg', '2-4.jpg', '2-5.jpg']),
+        layout: { desktop: [[0, 1], [2, 3]], mobile: [[0, 1], [2, 3]] }
       }
     ]
   },
@@ -33,11 +99,32 @@ const categories = [
     projects: [
       {
         title: "DigiPie Design",
-        images: ['1-1.png','1-2.png','1-3.png','1-4.png'].map(f => `/images/projects-websites/${f}`)
+        description: isES
+          ? "Sitio web para un estudio que crea campus virtuales para escuelas y equipos remotos: mapas 2D a medida en el navegador donde los avatares exploran, se reúnen y hacen videollamadas con solo acercarse."
+          : "Website for a studio that builds virtual campuses for schools and remote teams: custom 2D maps in the browser where avatars explore, meet and video chat just by walking up to each other.",
+        tags: isES
+          ? ["Diseño Web", "Mapas 2D Interactivos", "Videochat por Proximidad", "Catálogo de Productos"]
+          : ["Web Design", "Interactive 2D Maps", "Proximity Video Chat", "Product Catalogue"],
+        url: "https://www.digipiedesign.com",
+        images: projectImages('websites', [
+          { file: '1-1.png', ratio: 16 / 9, focus: 'top' },
+          { file: '1-2.png', ratio: 16 / 9, focus: 'top' },
+          { file: '1-3.png', ratio: 16 / 9 },
+          { file: '1-4.png', ratio: 16 / 9 },
+        ]),
+        layout: { desktop: [[0, 1], [2, 3]], mobile: [[0, 1], [2, 3]] }
       },
       {
         title: "Nightreign Sidekick",
-        images: ['2-1.png','2-2.png','2-3.png'].map(f => `/images/projects-websites/${f}`)
+        description: isES
+          ? "Una aplicación web de apoyo para Elden Ring Nightreign: encuentra la semilla del mapa en pocos clics, muestra las debilidades de los jefes y carga las reliquias del jugador decodificando los datos binarios cifrados del juego en el navegador."
+          : "A companion web app for Elden Ring Nightreign: it finds the map seed in a few clicks, shows boss weaknesses and loads players' relics by decoding the game's encrypted binary data right in the browser.",
+        tags: isES
+          ? ["Aplicación Web", "Decodificación de Datos Binarios", "Mapas Interactivos", "Videojuegos"]
+          : ["Web App", "Binary Data Decoding", "Interactive Maps", "Gaming"],
+        url: "https://nightreignsidekick.com",
+        images: projectImages('websites', ['2-1.png', '2-2.png', '2-3.png']),
+        layout: { desktop: [[0, 1, 2]], mobile: [[0], [1, 2]] }
       }
     ]
   },
@@ -47,18 +134,71 @@ const categories = [
     projects: [
       {
         title: isES ? "Predicción Financiera" : "Finance Forecasting",
-        images: ['1-1.jpg','1-2.jpg','1-3.jpg','1-4.jpg','1-5.jpg'].map(f => `/images/projects-mspowerapps/${f}`)
+        description: isES
+          ? "Una herramienta en Microsoft Power Apps para la previsión financiera mensual. Los equipos introducen KPIs o cargan miles de filas desde Excel, comparan con meses y años anteriores y abren informes de Power BI integrados."
+          : "A Microsoft Power Apps tool for monthly financial forecasting. Teams enter KPIs or upload thousands of rows from Excel, compare results against last month and last year, and open embedded Power BI reports, with dark and colorblind-friendly themes.",
+        tags: isES
+          ? ["Power Apps", "Power BI", "Integración con Excel", "Previsiones"]
+          : ["Power Apps", "Power BI", "Excel Integration", "Forecasting"],
+        images: projectImages('mspowerapps', ['1-1.jpg', '1-2.jpg', '1-3.jpg', '1-4.jpg', '1-5.jpg']),
+        layout: { desktop: [[0, 1], [2, 3, 4]], mobile: [[0], [1, 2], [3, 4]] }
       },
       {
         title: isES ? "Administración de Solicitudes" : "Requests Management",
-        images: ['2-1.jpg','2-2.jpg','2-3.jpg','2-4.jpg','2-5.jpg'].map(f => `/images/projects-mspowerapps/${f}`)
+        description: isES
+          ? "Una herramienta en Microsoft Power Apps para registrar, seguir y aprobar solicitudes entre departamentos. Los empleados envían cambios, los administradores los revisan, y los avisos por email, SharePoint y un historial mantienen a todos alineados."
+          : "A Microsoft Power Apps tool to log, track and approve requests across departments. Employees submit changes, admins review them with comments, and email notifications, SharePoint storage and a full history log keep everyone aligned.",
+        tags: isES
+          ? ["Power Apps", "Flujos de Aprobación", "SharePoint", "Notificaciones por Email"]
+          : ["Power Apps", "Approval Workflows", "SharePoint", "Email Notifications"],
+        images: projectImages('mspowerapps', ['2-1.jpg', '2-2.jpg', '2-3.jpg', '2-4.jpg', '2-5.jpg']),
+        layout: { desktop: [[0, 1], [2, 3, 4]], mobile: [[0], [1, 2], [3, 4]] }
       }
     ]
   }
 ];
+
+// Responsive widths for collage tiles, never above the original size
+const widthsFor = (img: ImageMetadata) => [...new Set([400, 800, 1200].map(w => Math.min(w, img.width)))];
+
+const panels = await Promise.all(categories.map(async cat => ({
+  ...cat,
+  projects: await Promise.all(cat.projects.map(async (proj, pi) => {
+    const ratios = proj.images.map(img => img.ratio);
+    const alt = (i: number) => `${proj.title} – ${t.image} ${i + 1}`;
+    const full = await Promise.all(proj.images.map(({ meta }) =>
+      getImage({ src: meta, width: Math.min(meta.width, 1800), format: 'webp' })
+    ));
+    const mirror = pi % 2 === 1;
+
+    return {
+      ...proj,
+      alt,
+      domain: proj.url && new URL(proj.url).hostname.replace(/^www\./, ''),
+      lightbox: full.map((img, i) => ({ src: img.src, alt: alt(i) })),
+      // Desktop collages alternate sides; phones get their own, taller layout
+      variants: [
+        {
+          visibility: 'hidden md:block',
+          collage: proj.layout
+            ? buildRows(ratios, proj.layout.desktop, { width: 992, gap: 10 })
+            : buildCollage(ratios, { width: 992, gap: 10, targetHeight: 400, minTile: 120, mirror }),
+          sizes: (w: number) => `${Math.ceil(w * 9.92)}px`,
+        },
+        {
+          visibility: 'md:hidden',
+          collage: proj.layout
+            ? buildRows(ratios, proj.layout.mobile, { width: 343, gap: 6 })
+            : buildCollage(ratios, { width: 343, gap: 6, targetHeight: 330, minTile: 70 }),
+          sizes: (w: number) => `${Math.ceil(w)}vw`,
+        },
+      ],
+    };
+  })),
+})));
 ---
 
-<Layout tabTitle={isES ? "Nuestros Proyectos" : "Our Projects"} description={description}>
+<Layout tabTitle={t.title} description={description}>
 
 <!-- TITLE STRIP -->
 <section class="bg-[var(--color-primary)] py-6 text-white text-center">
@@ -73,7 +213,7 @@ const categories = [
 
     <!-- CATEGORY BUTTONS -->
     <div class="grid grid-cols-3 md:flex md:justify-center gap-3 md:gap-4 mb-6">
-      {categories.map((cat, i) => (
+      {panels.map((cat, i) => (
         <button
           data-cat={cat.id}
           class:list={['category-btn btn-larger', { 'is-active': i === 0 }]}
@@ -84,74 +224,120 @@ const categories = [
     </div>
 
     <!-- CATEGORY PANELS -->
-    {categories.map((cat, ci) => (
+    {panels.map((cat, ci) => (
       <div
         data-panel={cat.id}
-        class:list={['category-panel flex flex-col gap-14', { 'hidden': ci !== 0 }]}
+        class:list={['category-panel divide-y divide-gray-200', { 'hidden': ci !== 0 }]}
       >
         {cat.projects.map((proj) => (
-          <div>
+          <article
+            class="project py-10 first:pt-4 last:pb-0"
+            data-title={proj.title}
+            data-images={JSON.stringify(proj.lightbox)}
+          >
 
-            <!-- PROJECT TITLE -->
-            <h3
-              class="text-xl md:text-2xl font-heading text-center mb-4"
-              style="color: var(--color-primary)"
-            >
-              {proj.title}
-            </h3>
-
-            <!-- CAROUSEL -->
-            <div class="carousel" data-images={JSON.stringify(proj.images)}>
-
-              <!-- IMAGE + ARROWS -->
-              <!-- Fixed-height row: image keeps its natural ratio, width varies per photo, arrows sit beside it -->
-              <div class="flex items-center justify-center gap-2 md:gap-4 h-70 sm:h-95 md:h-120">
-
-                <button
-                  class="prev-btn shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:opacity-90 hover:scale-110 hover:shadow-lg active:scale-90"
-                  style="background-color: var(--color-primary); color: white;"
-                  aria-label="Previous"
-                >
-                  <span style="font-size: 2.4rem; line-height: 1; display: block; margin-top: -2px;">‹</span>
-                </button>
-
-                <img
-                  class="carousel-img max-h-full max-w-full min-w-0 object-contain rounded-lg"
-                  src={proj.images[0]}
-                  alt={proj.title}
-                />
-
-                <button
-                  class="next-btn shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-full shadow-md flex items-center justify-center cursor-pointer transition-all duration-200 hover:opacity-90 hover:scale-110 hover:shadow-lg active:scale-90"
-                  style="background-color: var(--color-primary); color: white;"
-                  aria-label="Next"
-                >
-                  <span style="font-size: 2.4rem; line-height: 1; display: block; margin-top: -2px;">›</span>
-                </button>
+            <!-- PROJECT INFO -->
+            <header class="mb-5 md:flex md:items-end md:justify-between md:gap-10">
+              <div class="max-w-2xl">
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <h2 class="text-2xl md:text-3xl font-heading" style="color: var(--color-primary)">
+                    {proj.title}
+                  </h2>
+                  {proj.url && (
+                    <a
+                      href={proj.url}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={`${t.visit} ${proj.domain}`}
+                      class="group/link inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-ui text-gray-700 shadow-sm transition hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] hover:shadow-md"
+                    >
+                      <span class="relative flex h-2 w-2">
+                        <span class="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75 motion-safe:animate-ping"></span>
+                        <span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
+                      </span>
+                      {proj.domain}
+                      <svg class="h-3.5 w-3.5 transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 17 17 7M8 7h9v9" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+                <p class="mt-2 font-body text-[15px] md:text-base leading-relaxed text-gray-700">
+                  {proj.description}
+                </p>
               </div>
+              <ul class="mt-4 md:mt-0 flex flex-wrap gap-2 md:justify-end md:max-w-[280px] shrink-0">
+                {proj.tags.map(tag => (
+                  <li class="rounded-full px-3 py-1 text-xs font-ui font-medium bg-[var(--color-primary)]/10 text-[var(--color-primary)] whitespace-nowrap">
+                    {tag}
+                  </li>
+                ))}
+              </ul>
+            </header>
 
-              <!-- DOTS -->
-              <div class="dots flex justify-center gap-2 mt-3">
-                {proj.images.map((_, idx) => (
+            <!-- COLLAGE (click a tile to open the lightbox) -->
+            {proj.variants.map(variant => (
+              <div class:list={['relative', variant.visibility]} style={`aspect-ratio: ${variant.collage.ratio}`}>
+                {variant.collage.tiles.map(tile => (
                   <button
-                    class="dot w-2.5 h-2.5 rounded-full transition-all duration-200 cursor-pointer"
-                    style={idx === 0
-                      ? "background-color: var(--color-primary)"
-                      : "background-color: #d1d5db"}
-                    data-idx={idx}
-                    aria-label={`Slide ${idx + 1}`}
-                  />
+                    type="button"
+                    class="tile group absolute overflow-hidden rounded-lg bg-gray-100 shadow-[0_2px_10px_rgba(16,86,111,0.18)] cursor-zoom-in focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+                    style={`left: ${tile.x}%; top: ${tile.y}%; width: ${tile.w}%; height: ${tile.h}%;`}
+                    data-index={tile.index}
+                  >
+                    <Image
+                      src={proj.images[tile.index].meta}
+                      alt={proj.alt(tile.index)}
+                      style={proj.images[tile.index].focus && `object-position: ${proj.images[tile.index].focus}`}
+                      widths={widthsFor(proj.images[tile.index].meta)}
+                      sizes={variant.sizes(tile.w)}
+                      loading="lazy"
+                      decoding="async"
+                      class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                    />
+                    <span class="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-black/20 bg-black/0 transition-colors duration-300 group-hover:bg-black/20"></span>
+                    <span
+                      class="pointer-events-none absolute right-2 bottom-2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 opacity-0 shadow transition-opacity duration-300 group-hover:opacity-100"
+                      style="color: var(--color-primary)"
+                    >
+                      <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                      </svg>
+                    </span>
+                  </button>
                 ))}
               </div>
+            ))}
 
-            </div>
-          </div>
+          </article>
         ))}
       </div>
     ))}
 
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<dialog id="lightbox" class="lightbox">
+  <div class="lb-stage">
+    <button type="button" class="lb-btn lb-close" aria-label={t.close}>
+      <span>×</span>
+    </button>
+    <button type="button" class="lb-btn lb-prev" aria-label={t.prev}>
+      <span>‹</span>
+    </button>
+    <figure class="lb-figure">
+      <img class="lb-img" alt="" />
+      <figcaption class="lb-caption font-ui">
+        <span class="lb-title"></span>
+        <span class="lb-count"></span>
+      </figcaption>
+    </figure>
+    <button type="button" class="lb-btn lb-next" aria-label={t.next}>
+      <span>›</span>
+    </button>
+  </div>
+</dialog>
 
 </Layout>
 
@@ -161,38 +347,136 @@ const categories = [
     color: white;
     border-color: rgb(13 148 136);
   }
+
+  .category-panel:not(.hidden) {
+    animation: fade-in 0.35s ease-out;
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Lightbox: full-screen native dialog */
+  .lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  .lightbox::backdrop {
+    background: rgb(0 0 0 / 0.9);
+    backdrop-filter: blur(6px);
+  }
+
+  .lb-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    padding: 3.5rem 1rem 1.5rem;
+  }
+
+  .lb-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    max-height: 100%;
+  }
+
+  .lb-img {
+    max-width: min(1400px, 100%);
+    max-height: calc(100dvh - 8rem);
+    object-fit: contain;
+    border-radius: 0.5rem;
+    transition: opacity 0.25s ease;
+  }
+
+  .lb-img.is-loading {
+    opacity: 0;
+  }
+
+  .lb-caption {
+    display: flex;
+    gap: 0.75rem;
+    color: rgb(255 255 255 / 0.85);
+    font-size: 0.875rem;
+  }
+
+  .lb-count {
+    color: rgb(255 255 255 / 0.55);
+  }
+
+  .lb-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .lb-btn:hover {
+    transform: scale(1.1);
+  }
+
+  .lb-btn span {
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-top: -4px;
+  }
+
+  .lb-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .lb-close span {
+    font-size: 1.75rem;
+    margin-top: -2px;
+  }
+
+  .lb-stage.is-single .lb-prev,
+  .lb-stage.is-single .lb-next {
+    display: none;
+  }
+
+  /* Phones: arrows float over the bottom corners */
+  @media (max-width: 767px) {
+    .lb-prev,
+    .lb-next {
+      position: absolute;
+      bottom: 1rem;
+      z-index: 1;
+    }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+    .lb-img { max-height: calc(100dvh - 10rem); }
+  }
 </style>
 
 <script>
-  function initCarousel(el: HTMLElement) {
-    const images: string[] = JSON.parse(el.dataset.images || '[]');
-    const img = el.querySelector('.carousel-img') as HTMLImageElement;
-    const prevBtn = el.querySelector('.prev-btn') as HTMLButtonElement;
-    const nextBtn = el.querySelector('.next-btn') as HTMLButtonElement;
-    const dots = Array.from(el.querySelectorAll('.dot')) as HTMLButtonElement[];
-    let current = 0;
-
-    if (images.length <= 1) {
-      prevBtn?.classList.add('hidden');
-      nextBtn?.classList.add('hidden');
-      return;
-    }
-
-    function go(i: number) {
-      current = (i + images.length) % images.length;
-      img.src = images[current];
-      dots.forEach((d, di) => {
-        d.style.backgroundColor = di === current ? 'var(--color-primary)' : '#d1d5db';
-      });
-    }
-
-    prevBtn?.addEventListener('click', () => go(current - 1));
-    nextBtn?.addEventListener('click', () => go(current + 1));
-    dots.forEach((d, di) => d.addEventListener('click', () => go(di)));
-  }
-
+  // ---------- Category tabs ----------
   function showPanel(id: string) {
-
     document.querySelectorAll<HTMLElement>('.category-panel').forEach(p => p.classList.add('hidden'));
     document.querySelectorAll<HTMLElement>('.category-btn').forEach(b => b.classList.remove('is-active'));
 
@@ -202,14 +486,85 @@ const categories = [
 
     panel.classList.remove('hidden');
     btn.classList.add('is-active');
-
-    panel.querySelectorAll<HTMLElement>('.carousel').forEach(initCarousel);
   }
 
   document.querySelectorAll<HTMLElement>('.category-btn').forEach(btn => {
     btn.addEventListener('click', () => showPanel(btn.dataset.cat || ''));
   });
 
-  // Init carousels in the first visible panel
-  document.querySelectorAll<HTMLElement>('.category-panel:not(.hidden) .carousel').forEach(initCarousel);
+  // ---------- Lightbox ----------
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement;
+  const stage = dialog.querySelector('.lb-stage') as HTMLElement;
+  const lbImg = dialog.querySelector('.lb-img') as HTMLImageElement;
+  const lbTitle = dialog.querySelector('.lb-title') as HTMLElement;
+  const lbCount = dialog.querySelector('.lb-count') as HTMLElement;
+
+  let images: { src: string; alt: string }[] = [];
+  let current = 0;
+
+  function show(i: number) {
+    current = (i + images.length) % images.length;
+    const item = images[current];
+    if (lbImg.getAttribute('src') !== item.src) lbImg.classList.add('is-loading');
+    lbImg.src = item.src;
+    lbImg.alt = item.alt;
+    lbCount.textContent = `${current + 1} / ${images.length}`;
+
+    // Warm up the neighbours so the arrows feel instant
+    [current - 1, current + 1].forEach(n => {
+      new Image().src = images[(n + images.length) % images.length].src;
+    });
+  }
+
+  function open(project: HTMLElement, index: number) {
+    images = JSON.parse(project.dataset.images || '[]');
+    lbTitle.textContent = project.dataset.title || '';
+    stage.classList.toggle('is-single', images.length < 2);
+    show(index);
+    dialog.showModal();
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  lbImg.addEventListener('load', () => lbImg.classList.remove('is-loading'));
+
+  dialog.addEventListener('close', () => {
+    document.documentElement.style.overflow = '';
+  });
+
+  document.querySelectorAll<HTMLButtonElement>('.tile').forEach(tile => {
+    tile.addEventListener('click', () => {
+      const project = tile.closest<HTMLElement>('.project');
+      if (project) open(project, Number(tile.dataset.index));
+    });
+  });
+
+  dialog.querySelector('.lb-prev')?.addEventListener('click', () => show(current - 1));
+  dialog.querySelector('.lb-next')?.addEventListener('click', () => show(current + 1));
+  dialog.querySelector('.lb-close')?.addEventListener('click', () => dialog.close());
+
+  dialog.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+
+  // Swipe on touch screens; a click on the dark area (not after a swipe) closes
+  let startX = 0;
+  let swiped = false;
+
+  dialog.addEventListener('pointerdown', e => {
+    startX = e.clientX;
+    swiped = false;
+  });
+
+  dialog.addEventListener('pointerup', e => {
+    const dx = e.clientX - startX;
+    if (Math.abs(dx) > 50 && images.length > 1) {
+      swiped = true;
+      show(dx > 0 ? current - 1 : current + 1);
+    }
+  });
+
+  dialog.addEventListener('click', e => {
+    if (!swiped && (e.target === dialog || e.target === stage)) dialog.close();
+  });
 </script>
